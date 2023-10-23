@@ -12,6 +12,7 @@
     "bootstrap-vue": "^2.23.1",
     "core-js": "^3.8.3",
     "lodash": "^4.17.21",
+    "node-sass": "^4.14.0",
     "sass-loader": "^8.0.2",
     "vee-validate": "^3.4.9",
     "vue": "^2.6.14",
