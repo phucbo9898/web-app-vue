@@ -2,7 +2,8 @@
   <div id="app">
     <nav>
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/about">About</router-link> |
+      <router-link to="/login">Login</router-link>
     </nav>
     <component :is="$route.meta.layout || 'div'">
       <router-view />
@@ -10,6 +11,33 @@
   </div>
 </template>
 
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import { getModule } from "vuex-module-decorators";
+import AuthService from "./services/AuthService";
+import store from "./store";
+import Auth from "./store/modules/Auth";
+const AuthModule = getModule(Auth, store)
+
+@Component
+export default class App extends Vue {
+  async logout() {
+    await AuthService.logout()
+      .then(response => {
+        if (response.status === 200) {
+          AuthModule.SET_TOKEN_NULL()
+          this.$router.push({ name: 'login'})
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        
+      })
+    sessionStorage.clear()
+    localStorage.clear()
+  }
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
