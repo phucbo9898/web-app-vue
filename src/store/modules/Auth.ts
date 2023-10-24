@@ -3,7 +3,6 @@ import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators';
 @Module({ namespaced: true, name: 'auth'})
 class Auth extends VuexModule {
     token?: string | null
-    email: string = ''
 
     @Mutation
     setNewToken(newToken: string) {
