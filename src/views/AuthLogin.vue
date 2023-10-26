@@ -64,6 +64,7 @@ export default class LayoutAuth extends Vue {
         }
         console.log(this.email);
         console.log(this.password);
+        this.$blockui.show()
         AuthService.login(account)
         .then(async (response) => {
             if (response.status == 200) {
@@ -84,6 +85,7 @@ export default class LayoutAuth extends Vue {
             }
             console.log(err.response.status);
         })
+        .finally(() => this.$blockui.hide())
     }
 
     getUserInfor() {
