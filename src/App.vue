@@ -8,6 +8,7 @@
     <component :is="$route.meta.layout || 'div'">
       <router-view />
     </component>
+    <BlockView :active="$store.state.blockUi.active" />
   </div>
 </template>
 
@@ -15,11 +16,12 @@
 import { Component, Vue } from "vue-property-decorator";
 import { getModule } from "vuex-module-decorators";
 import AuthService from "./services/AuthService";
+import BlockView from "@/components/BlockView.vue";
 import store from "./store";
 import Auth from "./store/modules/Auth";
 const AuthModule = getModule(Auth, store)
 
-@Component
+@Component({ components: { BlockView } })
 export default class App extends Vue {
   async logout() {
     await AuthService.logout()

@@ -1,8 +1,13 @@
 import Const from '@/constants/index'
+import authHeader from './AuthHeader'
 import axios from 'axios'
-import '@/router'
 import axiosApiInstance from '@/interceptors'
 import { getModule } from 'vuex-module-decorators'
+import Auth from '@/store/modules/Auth'
+import store from '@/store'
+import router from '@/router'
+
+const AuthModule = getModule(Auth, store)
 
 class AuthService {
     login(account: any) {
@@ -15,6 +20,22 @@ class AuthService {
 
     logout() {
         return axiosApiInstance.post(Const.api_url + 'auth/logout')
+    }
+
+    refreshAccessToken() {
+        return axios.get(Const.api_url + 'auth/refresh', {
+            headers: authHeader()
+        })
+        .then(response => {
+            let access_token = response.data.items.access_token
+            AuthModule.SET_NEW_TOKEN(access_token)
+            return access_token
+        })
+        .catch((error: any) => {
+            if (error) {
+                router.push({ name: 'login'})
+            }
+        })
     }
 }
 
