@@ -37,10 +37,19 @@ const routes: Array<RouteConfig> = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/AuthLogin.vue'),
+    component: () => import('@/views/Auth/AuthLogin.vue'),
     meta: {
       layout: LayoutAuth,
       title: 'Login'
+    }
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import('@/views/Auth/AuthRegister.vue'),
+    meta: {
+      layout: LayoutAuth,
+      title: 'Register'
     }
   }
 ]

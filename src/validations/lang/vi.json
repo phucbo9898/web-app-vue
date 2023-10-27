@@ -1,0 +1,29 @@
+{
+    "code": "vi",
+    "fields": {
+      "password": "Password"
+    },
+    "messages": {
+      "email": "Vui lòng nhập chính xác địa chỉ email của bạn.",
+      "length": "Trường {_field_} phải dài {length}",
+      "max_value": "Trường {_field_} phải từ {max} trở xuống",
+      "min_value": "Trường {_field_} phải có kích thước từ {min} trở lên",
+      "min_date": "{_field_} ít nhất phải là {date_format}",
+      "max_date": "{_field_} must be less than or equal to {date_format}",
+      "min": "Trường {_field_} phải có ít nhất {length} ký tự",
+      "max": "Trường {_field_} không được lớn hơn {length} ký tự",
+      "numeric": "Trường {_field_} chỉ có thể chứa các ký tự số",
+      "regex": "Định dạng trường {_field_} không hợp lệ",
+      "required": "Vui lòng nhập {_field_} của bạn",
+      "size": "Kích thước trường {_field_} phải nhỏ hơn {size}KB",
+      "input": {
+        "required": "bắt buộc",
+        "exceedsPermissibleLength": "chiều dài quá mức cho phép",
+        "formatError": "lỗi định dạng",
+        "lessThanPermissibleLength": "chiều dài nhỏ hơn cho phép"
+      },
+      "check_password": "Mật khẩu không hợp lệ",
+      "no_script_tag": "{_field_} chứa ký tự không hợp lệ."
+    }
+  }
+  

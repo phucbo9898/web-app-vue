@@ -1,0 +1,29 @@
+{
+    "code": "en",
+    "fields": {
+      "password": "Password"
+    },
+    "messages": {
+      "email": "Please enter your e-mail address correctly.",
+      "length": "The {_field_} field must be {length} long",
+      "max_value": "The {_field_} field must be {max} or less",
+      "min_value": "The {_field_} field must be {min} or more",
+      "min_date": "{_field_} must be at least {date_format}",
+      "max_date": "{_field_} must be less than or equal to {date_format}",
+      "min": "The {_field_} field must be at least {length} characters",
+      "max": "The {_field_} field may not be greater than {length} characters",
+      "numeric": "The {_field_} field may only contain numeric characters",
+      "regex": "The {_field_} field format is invalid",
+      "required": "Please enter your {_field_}",
+      "size": "The {_field_} field size must be less than {size}KB",
+      "input": {
+        "required": "is required",
+        "exceedsPermissibleLength": "more than allowable length",
+        "formatError": "format error",
+        "lessThanPermissibleLength": "less than allowable length"
+      },
+      "check_password": "Password is invalid",
+      "no_script_tag": "{_field_} contains invalid characters."
+    }
+  }
+  
