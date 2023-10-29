@@ -6,6 +6,7 @@ import { getModule } from 'vuex-module-decorators'
 import Auth from '@/store/modules/Auth'
 import store from '@/store'
 import router from '@/router'
+import { RegisterMember } from '@/models'
 
 const AuthModule = getModule(Auth, store)
 
@@ -37,6 +38,11 @@ class AuthService {
             }
         })
     }
+
+    register(params: RegisterMember) {
+        return axiosApiInstance.post(`${Const.api_url}auth/register`, params)
+      }
+    
 }
 
 export default new AuthService
