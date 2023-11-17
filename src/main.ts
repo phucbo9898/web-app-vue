@@ -5,9 +5,11 @@ import store from './store'
 import i18n from './lang'
 import './assets/scss/index.scss'
 import './validations/validation'
+import '@/globalComponent'
 import { Component } from 'vue-property-decorator'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import { BootstrapVue } from 'bootstrap-vue'
+import 'bootstrap/dist/js/bootstrap';
 import BlockUi from './store/modules/BlockUi'
 import { getModule } from 'vuex-module-decorators'
 // @ts-ignore
