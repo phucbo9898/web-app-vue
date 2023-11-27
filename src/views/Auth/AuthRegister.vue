@@ -1,7 +1,7 @@
 <template>
     <div class="card register container">
         <div class="card-header">
-            <h3 class="text-center">Register</h3>
+            <h3 class="text-center">{{ $t('register')}}</h3>
         </div>
         <div class="card-body">
             <ValidationObserver v-slot="{ handleSubmit, invalid }">
@@ -18,16 +18,16 @@
                             name="email"
                         >
                         <label class="mb-1">
-                            Email address
+                            {{ $t('common.field.email') }}
                             <span class="badge bg-danger require">
-                                {{ $t("required") }}
+                                {{ $t("common.field.required") }}
                             </span>
                         </label>
                         <input
                             type="text"
                             class="form-control"
                             aria-describedby="emailHelp"
-                            placeholder="Enter your email"
+                            :placeholder="$t('common.placeholder.email')"
                             v-model="newMem.email"
                             autocomplete="off"
                             :class="{ 'border-danger': errors[0] }"
@@ -52,9 +52,9 @@
                             name="password"
                         >
                         <label for=''>
-                            Password
+                            {{ $t('common.field.password') }}
                             <span class="badge bg-danger require">
-                                {{ $t("required") }}
+                                {{ $t("common.field.required") }}
                             </span>
                         </label>
                         <div class="input-group">
@@ -64,11 +64,11 @@
                                     'border-danger': (touched || invalid) && errors[0],
                                 }"
                                 class="form-control"
-                                placeholder="Enter your password"
+                                :placeholder="$t('common.placeholder.password')"
                                 v-model="newMem.password"
                                 autocomplete="off"
                             />
-                            <div class="input-group-text" @click="hideOrShow">
+                            <div class="input-group-text" @click="hideOrShow('password')">
                                 <i class="check-pw far" :class="showPw"></i>
                             </div>
                         </div>
@@ -93,24 +93,24 @@
                             name="password"
                         >
                         <label for=''>
-                            Password confirm
+                            {{ $t('common.field.password_confirm') }}
                             <span class="badge bg-danger require">
-                                {{ $t("required") }}
+                                {{ $t("common.field.required") }}
                             </span>
                         </label>
                         <div class="input-group">
                             <input
-                                :type="typePassword"
+                                :type="typePasswordConfirm"
                                 :class="{
                                     'border-danger': (touched || invalid) && errors[0],
                                 }"
                                 class="form-control"
-                                placeholder="Enter your password"
+                                :placeholder="$t('common.placeholder.password_confirm')"
                                 v-model="passwordConfirm"
                                 autocomplete="off"
                             />
-                            <div class="input-group-text" @click="hideOrShow">
-                                <i class="check-pw far" :class="showPw"></i>
+                            <div class="input-group-text" @click="hideOrShow('passwordConfirm')">
+                                <i class="check-pw far" :class="showPwConfirm"></i>
                             </div>
                         </div>
                         <span
@@ -127,93 +127,92 @@
                         </span>
                         </ValidationProvider>
                     </div>
-                    <div class="form-group mb-3 d-flex justify-content-between">
-                        <ValidationProvider
-                            v-slot="{ errors, touched }"
-                            :rules="{ required: true, max: 255, no_script_tag: true }"
-                            name="password"
-                        >
-                        <label for=''>
-                            First name
-                            <span class="badge bg-danger require">
-                                {{ $t("required") }}
-                            </span>
-                        </label>
-                        <input
-                            type="text"
-                            :class="{ 'border-danger': (touched || invalid) && errors[0] }"
-                            class="form-control"
-                            placeholder="Enter your first name"
-                            v-model="newMem.first_name"
-                            autocomplete="off"
-                        />
-                        <span
-                            v-if="(touched || invalid) && errors[0]"
-                            class="text-danger slide-down-40-percent d-block z-n1"
-                        >
-                            {{ errors[0] }}
-                        </span>
-                        </ValidationProvider>
-                        <ValidationProvider
-                            v-slot="{ errors, touched }"
-                            :rules="{ required: true, max: 255, no_script_tag: true }"
-                            name="password"
-                        >
-                        <label for=''>
-                            Last name
-                            <span class="badge bg-danger require">
-                                {{ $t("required") }}
-                            </span>
-                        </label>
-                        <input
-                            type="text"
-                            :class="{ 'border-danger': (touched || invalid) && errors[0] }"
-                            class="form-control"
-                            placeholder="Enter your last name"
-                            v-model="newMem.last_name"
-                            autocomplete="off"
-                        />
-                        <span
-                            v-if="(touched || invalid) && errors[0]"
-                            class="text-danger slide-down-40-percent d-block z-n1"
-                        >
-                            {{ errors[0] }}
-                        </span>
-                        </ValidationProvider>
-                    </div>
-                    <!-- <div class="form-group mb-3">
+                    <div class="form-group mb-3 d-block d-xl-flex justify-content-between">
+                        <div class="name-custom mr-10px mb-3-custom">
+                            <ValidationProvider
+                                v-slot="{ errors, touched }"
+                                :rules="{ required: true, max: 255, no_script_tag: true }"
+                                name="first_name"
+                                class=""
+                            >
+                                <label for=''>
+                                    {{ $t('common.field.first_name') }}
+                                    <span class="badge bg-danger require">
+                                        {{ $t("common.field.required") }}
+                                    </span>
+                                </label>
+                                <input
+                                    type="text"
+                                    :class="{ 'border-danger': (touched || invalid) && errors[0] }"
+                                    class="form-control"
+                                    :placeholder="$t('common.placeholder.first_name')"
+                                    v-model="newMem.first_name"
+                                    autocomplete="off"
+                                />
+                                <span
+                                    v-if="(touched || invalid) && errors[0]"
+                                    class="text-danger slide-down-40-percent d-block z-n1"
+                                >
+                                    {{ errors[0] }}
+                                </span>
+                            </ValidationProvider>
+                        </div>
+                        <div class="name-custom">
+                            <ValidationProvider
+                                v-slot="{ errors, touched }"
+                                :rules="{ required: true, max: 255, no_script_tag: true }"
+                                name="last_name"
                                 
-                            </div> -->
+                            >
+                                <label for=''>
+                                    {{ $t('common.field.last_name') }}
+                                    <span class="badge bg-danger require">
+                                        {{ $t("common.field.required") }}
+                                    </span>
+                                </label>
+                                <input
+                                    type="text"
+                                    :class="{ 'border-danger': (touched || invalid) && errors[0] }"
+                                    class="form-control"
+                                    :placeholder="$t('common.placeholder.last_name')"
+                                    v-model="newMem.last_name"
+                                    autocomplete="off"
+                                />
+                                <span
+                                    v-if="(touched || invalid) && errors[0]"
+                                    class="text-danger slide-down-40-percent d-block z-n1"
+                                >
+                                    {{ errors[0] }}
+                                </span>
+                            </ValidationProvider>
+                        </div>
+                    </div>
                     <div class="form-group mb-3">
-                        <label for=''>Phone number</label>
+                        <label for=''>{{ $t('common.field.phone_number')}}</label>
                         <input
                             type="text"
                             class="form-control"
-                            placeholder="Enter your phone number"
+                            :placeholder="$t('common.placeholder.phone_number')"
                             v-model="newMem.phone_number"
                             autocomplete="off"
                         />
                     </div>
                     <div class="form-group">
-                        <label for=''>Address</label>
+                        <label for=''>{{ $t('common.field.address') }}</label>
                         <input
                             type="text"
                             class="form-control"
-                            placeholder="Enter your address"
+                            :placeholder="$t('common.placeholder.address')"
                             v-model="newMem.address"
                             autocomplete="off"
                         />
                     </div>
 
-                    <div
-                        v-if="showErrLogin"
-                        class="text-danger mb-5"
-                        v-html="msgErrLogin"
-                    ></div>
+                    <div v-if="showErrLogin" class="text-danger mb-5" v-html="msgErrLogin"></div>
                     <br />
                 </form>
-                <button @click="handleSubmit(submitRegister)" class="btn btn-primary">Submit</button>
-                <button @click="onReset" class="btn btn-danger">Reset</button>
+                <button @click="onReset" class="btn btn-warning" style="margin-right: 10px;">{{ $t('common.btn.btn_reset') }}</button>
+                <button @click="handleSubmit(submitRegister)" class="btn btn-primary">{{ $t('common.btn.btn_save') }}</button>
             </ValidationObserver>
         </div>
         <ModalSuccess :successMess="modalMess" @close="modalSuccessClose" />
@@ -237,7 +236,9 @@ export default class LayoutAuth extends Vue {
     private showErrLogin: boolean = false;
     private msgErrLogin: String = '';
     private showPw: String = "fa-eye-slash";
+    private showPwConfirm: String = "fa-eye-slash";
     private typePassword: String = "password";
+    private typePasswordConfirm: String = "password";
     private passwordConfirm: String = '';
     private passwordMatch: Boolean = true;
     private modalMess: string = '';
@@ -256,14 +257,25 @@ export default class LayoutAuth extends Vue {
         this.passwordMatch = false;
     }
 
-    hideOrShow() {
-        if (this.showPw == "fa-eye-slash") {
-            this.showPw = "fa-eye";
-            this.typePassword = "text";
+    hideOrShow(name: String) {
+        if (name == 'password') {
+            if (this.showPw == "fa-eye-slash") {
+                this.showPw = "fa-eye";
+                this.typePassword = "text";
+            } else {
+                this.showPw = "fa-eye-slash";
+                this.typePassword = "password";
+            }
         } else {
-            this.showPw = "fa-eye-slash";
-            this.typePassword = "password";
+            if (this.showPwConfirm == "fa-eye-slash") {
+            this.showPwConfirm = "fa-eye";
+            this.typePasswordConfirm = "text";
+        } else {
+            this.showPwConfirm = "fa-eye-slash";
+            this.typePasswordConfirm = "password";
         }
+        }
+        
     }
 
     submitRegister() {
@@ -317,5 +329,21 @@ export default class LayoutAuth extends Vue {
   background-color: red;
   color: white !important;
   border-radius: 20px;
+}
+.name-custom {
+    @media (min-width: 992px) {
+        width: 50% !important;
+    }
+}
+.mr-10px {
+    @media (min-width: 992px) {
+        margin-right: 10px !important;
+    }
+}
+.mb-3-custom {
+    margin-bottom: 1rem !important;
+    @media (min-width: 992px) {
+        margin-bottom: 0 !important;
+    }
 }
 </style>
