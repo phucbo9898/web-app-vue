@@ -1,40 +1,5 @@
 <template>
-  <div class="header">
-    <nav class="header-top border-bottom p-2">
-      <div class="container">
-        <div class="d-flex justify-content-between">
-          <div class="d-xl-flex d-block">
-            <div class="mr-5" style="margin-right: 20px !important">
-              <span>{{ $t("Phone Number") }}: </span>
-              <span>+1234567890</span>
-            </div>
-            <div>
-              <span>{{ $t("Email") }}: </span>
-              <a href="mailto://phucbo9898@gmail.com" class="number"
-                >phucbo9898@gmail.com</a
-              >
-            </div>
-          </div>
-          <div>
-            <span
-              class="btn btn-light"
-              type="button"
-              data-bs-toggle="dropdown"
-              data-bs-auto-close="outside"
-              aria-expanded="false"
-              style="background: none; border: 0px !important"
-            >
-              <i class="fa fa-user"></i>
-              {{ $t("Account") }}
-            </span>
-            <ul class="dropdown-menu">
-              <li class="p-2">{{ $t("Đăng nhập") }}</li>
-              <li class="p-2">{{ $t("Đăng kí") }}</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
+  <div class="header-top">
     <nav class="header-middle pl-sm-0 pr-sm-0 pl-xs-0 pr-xs-0">
       <div class="container">
         <div class="row">
@@ -112,7 +77,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 @Component
-export default class Header extends Vue {}
+export default class HeaderMiddle extends Vue {}
 </script>
 
 <style lang="scss" scoped>
