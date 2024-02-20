@@ -24,6 +24,16 @@ class UserInfo extends VuexModule {
     }
 
     @Mutation
+    handleUserAvatar(avatar: string) {
+        this.user.avatar = avatar;
+    }
+
+    @Action({ rawError: true})
+    HANDLE_USER_AVATAR(avatar: string) {
+        this.context.commit('handleUserAvatar', avatar)
+    }
+
+    @Mutation
     resetDefault() {
         this.user = this.user_default;
     }

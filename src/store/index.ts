@@ -16,7 +16,7 @@ const store = new Vuex.Store({
   plugins: [
     createPersistedState({
       paths: ['auth', 'userInfor'],
-      storage: window.sessionStorage
+      storage: window.localStorage
     })
   ]
 })

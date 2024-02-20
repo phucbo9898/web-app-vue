@@ -1,7 +1,9 @@
 {
     "code": "en",
     "fields": {
-      "password": "Password"
+      "password": "Password",
+      "first_name": "First name",
+      "last_name": "Last name"
     },
     "messages": {
       "email": "Please enter your e-mail address correctly.",

@@ -1,7 +1,9 @@
 {
     "code": "vi",
     "fields": {
-      "password": "Password"
+      "password": "Mật khẩu",
+      "first_name": "Tên",
+      "last_name": "Họ và tên đệm"
     },
     "messages": {
       "email": "Vui lòng nhập chính xác địa chỉ email của bạn.",

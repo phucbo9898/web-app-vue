@@ -1,10 +1,10 @@
 <template>
   <div class="about">
     <h1>This is an about page</h1>
-    <input type="text" name="testInput" v-model="testInput" />
+    <!-- <input type="text" name="testInput" v-model="testInput" />
     <span>{{ testInput }}</span>
     <button @click="submitInput" class="btn btn-secondary">Click</button>
-    <button @click="resetInput" class="btn btn-secondary">Reset</button>
+    <button @click="resetInput" class="btn btn-secondary">Reset</button> -->
   </div>
 </template>
 

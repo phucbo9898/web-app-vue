@@ -16,7 +16,7 @@ class AuthService {
     }
     
     getUserInfor() {
-        return axiosApiInstance.get(Const.api_url + 'auth/get-info')
+        return axiosApiInstance.get(Const.api_url + 'members/me/user-profile')
     }
 
     logout() {
@@ -41,8 +41,11 @@ class AuthService {
 
     register(params: RegisterMember) {
         return axiosApiInstance.post(`${Const.api_url}auth/register`, params)
-      }
+    }
     
+    updateDeviceToken(params: any) {
+        return axiosApiInstance.patch(`${Const.api_url}auth/fcm-token`, params)
+    }
 }
 
 export default new AuthService

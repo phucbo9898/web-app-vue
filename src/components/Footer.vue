@@ -1,7 +1,9 @@
 <template>
-  <div class="test">
-    <button @click="handleLogout" class="btn btn-danger">Logout</button>
-  </div>
+  <footer id="footer">
+    <div style="background-color: silver;">
+      <span>Copyright @ 2022 Kise, Inc.</span>
+    </div>
+  </footer>
 </template>
 
 <script lang="ts">
@@ -30,3 +32,10 @@ export default class TestView extends Vue {
   }
 }
 </script>
+<style>
+#footer {
+  /* position: absolute; */
+  bottom: 0 !important;
+  width: 100%;
+}
+</style>
