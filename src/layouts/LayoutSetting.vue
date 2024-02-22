@@ -6,8 +6,8 @@
     <main class="flex-1 py-3 py-xl-5 order-2">
       <div class="container">
         <div class="d-xl-flex mt-2 mt-xl-6 mb-xl-15">
-          <NavMenuSetting class="order-1 w-18"/>
           <router-view class="order-2 flex-1 ml-10 w-82"></router-view>
+          <NavMenuSetting class="order-1 w-18" />
         </div>
       </div>
     </main>

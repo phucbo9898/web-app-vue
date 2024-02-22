@@ -18,7 +18,8 @@ const routes: Array<RouteConfig> = [
     component: () => import('@/views/HomeView.vue'),
     meta: {
       layout: LayoutHome,
-      title: 'Home page'
+      title: 'Home page',
+      requireAuth: false
     }
   },
   // {

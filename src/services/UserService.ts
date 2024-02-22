@@ -16,7 +16,7 @@ class UserService {
     }
 
     uploadImage(params: any) {
-        return axios.post(Const.api_url + 'upload-image', params,{
+        return axiosApiInstance.post(Const.api_url + 'upload-image', params,{
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

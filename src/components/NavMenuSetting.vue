@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen d-flex flex-column pb-17 pb-xl-0 pt-2">
-    <ul class="pl-0 shadow border bg-light" style="padding-left: 0 !important;">
+  <div class="min-h-screen d-flex flex-column pb-17 pb-xl-0">
+    <ul class="pl-0 shadow border bg-light" style="padding-left: 0 !important">
       <li class="text-decoration-none list-style-none border-bottom px-4 py-3 text-center">
         <div>
           <span class="font-weight-bold fs-24">Setting</span>
@@ -13,11 +13,13 @@
         :class="$route.path.includes(menu.link) ? 'bg-secondary' : 'bg-light'"
       >
         <router-link
-            :to="menu.link"
-            class="text-decoration-none text-dark d-block px-4 py-3"
-            style="margin-right: 10px !important;"
-            :class="$route.path.includes(menu.link) ? 'text-white' : 'text-dark'"
-        >{{menu.name}}</router-link>
+          :to="menu.link"
+          class="text-decoration-none text-dark d-block px-4 py-3"
+          style="margin-right: 10px !important"
+          :class="$route.path.includes(menu.link) ? 'text-white' : 'text-dark'"
+          >
+          {{ menu.name }}
+        </router-link>
       </li>
     </ul>
   </div>
@@ -29,7 +31,7 @@ import { SettingMenu } from '@/models';
 
 @Component
 export default class LayoutSetting extends Vue {
-  public listMenu: SettingMenu[] = []
+  public listMenu: SettingMenu[] = [];
 
   created() {
     this.getListMenu();
@@ -59,6 +61,6 @@ export default class LayoutSetting extends Vue {
 </script>
 <style>
 .item-menu:hover {
-    background-color: aquamarine;
+  background-color: aquamarine;
 }
 </style>
