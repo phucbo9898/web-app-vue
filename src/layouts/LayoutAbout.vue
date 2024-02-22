@@ -14,7 +14,10 @@ import HeaderMiddle from '@/components/HeaderMiddle.vue';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
-    components: {HeaderTop,HeaderMiddle}
+  components: {
+    HeaderTop,
+    HeaderMiddle,
+  }
 })
 export default class LayoutAbout extends Vue {}
 </script>

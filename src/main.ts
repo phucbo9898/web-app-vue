@@ -12,10 +12,18 @@ import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/js/bootstrap';
 import BlockUi from './store/modules/BlockUi'
 import { getModule } from 'vuex-module-decorators'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 // @ts-ignore
 // import Vidle from 'v-idle'
 // Vue.use(Vidle)
 const CommonModule = getModule(BlockUi, store)
+
+Component.registerHooks([
+  'beforeRouteEnter',
+  'beforeRouteLeave',
+  'beforeRouteUpdate',
+]);
 
 Vue.component('ValidationObserver', ValidationObserver)
 Vue.component('ValidationProvider', ValidationProvider)

@@ -1,95 +1,99 @@
 <template>
   <div class="header-top">
     <nav class="header-middle pl-sm-0 pr-sm-0 pl-xs-0 pr-xs-0">
-      <div class="container">
-        <div class="row">
+      <div class="row">
           <!-- Begin Header Logo Area -->
-          <div class="col-lg-3">
+          <div class="col-lg-3 text-end">
             <div class="logo pb-sm-30 pb-xs-30">
               <a href="http://webpc.test">
                 <img
-                  src="http://webpc.test/images/logo-fe.png"
+                  src="../assets/logo-fe.png"
                   alt=""
                   style="width: 75px"
                 />
               </a>
             </div>
           </div>
-          <div class="col-lg-9 pl-0 ml-sm-15 ml-xs-15">
-            <form
-              action="http://webpc.test/search"
-              class="hm-searchbox"
-              method="GET"
-            >
-              <select
-                class="nice-select select-search-category"
-                name="search_category_id"
+          <div class="col-lg-6" style="margin: auto !important;">
+            <div>
+              <form
+                action="http://webpc.test/search"
+                class="hm-searchbox"
+                method="GET"
               >
-                <option value="0">Tất cả</option>
-                <option value="1">CPU - Bộ vi xử lý</option>
-                <option value="2">VGA - Card màn hình</option>
-                <option value="3">Mainbroad - Bo mạch chủ</option>
-                <option value="4">RAM - Bộ nhớ</option>
-                <option value="5">Ổ cứng</option>
-                <option value="6">PSU - Nguồn máy tính</option>
-                <option value="7">Tai nghe</option>
-                <option value="8">Chuột - Bàn phím</option>
-              </select>
-              <input
-                type="text"
-                placeholder=" Nhập giá trị cần tìm kiếm"
-                name="search_key"
-                class="input-search"
-              />
-              <button class="li-btn" type="submit">
-                <i class="fa fa-search"></i>
-              </button>
-            </form>
-            <div class="header-middle-right">
-              <ul class="hm-menu">
-                <li class="hm-minicart">
-                  <a href="http://webpc.test/shopping">
-                    <div class="hm-minicart-trigger">
-                      <span class="item-icon"></span>
-                      <span class="item-text"
-                        ><span class="price_total_cart">0</span> VNĐ
-                        <span class="cart-item-count cart-item-count-number"
-                          >0</span
-                        >
-                      </span>
-                    </div>
-                  </a>
-                </li>
-              </ul>
+                <select
+                  class="nice-select select-search-category"
+                  name="search_category_id"
+                >
+                  <option value="0">Tất cả</option>
+                  <option value="1">CPU - Bộ vi xử lý</option>
+                  <option value="2">VGA - Card màn hình</option>
+                  <option value="3">Mainbroad - Bo mạch chủ</option>
+                  <option value="4">RAM - Bộ nhớ</option>
+                  <option value="5">Ổ cứng</option>
+                  <option value="6">PSU - Nguồn máy tính</option>
+                  <option value="7">Tai nghe</option>
+                  <option value="8">Chuột - Bàn phím</option>
+                </select>
+                <input
+                  type="text"
+                  placeholder="Nhập giá trị cần tìm kiếm"
+                  name="search_key"
+                  class="input-search"
+                />
+                <button class="li-btn" type="submit">
+                  <i class="fa fa-search"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="d-flex">
+              <img
+                  src="../assets/shopping-cart.png"
+                  alt=""
+                  style="width: 50px"
+                />
+              <div style="margin-left:10px !important;">
+                <span>Total quantity: 2</span> <br>
+                <span class="font-weight-bold" style="font-weight: bold !important; color: red !important;">Total money: {{ price.toLocaleString().replaceAll('.', ',')}} VNĐ</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
     </nav>
 
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> |
-    <router-link to="/login">Login</router-link> |
-    <router-link to="/register">Register</router-link>
+    <div class="border-top border-bottom" style="background-color: silver">
+      <ul class="d-flex px-5" style="width: 100% !important; font-size: 20px !important; margin-bottom: 0 !important; padding-left: 285px !important;">
+        <li class="hover-item-menu p-3 text-center" style="width: 6%">
+          <router-link style="text-decoration: none !important; color: white !important;" to="/">Home</router-link>
+        </li>
+        <li class="hover-item-menu p-3 text-center" style="width: 6%">
+          <router-link style="text-decoration: none !important; color: white !important;" to="/about">About</router-link>
+        </li>
+        <li class="hover-item-menu p-3 text-center" style="width: 9%">
+          <router-link style="text-decoration: none !important; color: white !important;" to="">Introduction</router-link>
+        </li>
+        <li class="hover-item-menu p-3 text-center" style="width: 7%">
+          <router-link style="text-decoration: none !important; color: white !important;" to="">Contact</router-link>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 @Component
-export default class HeaderMiddle extends Vue {}
+export default class HeaderMiddle extends Vue {
+  public price: number = 1000000000
+}
 </script>
 
 <style lang="scss" scoped>
 .header-middle {
   padding: 30px;
 }
-/* .pl-sm-0, .px-sm-0 {
-  @media (min-width: 576px) {
-    padding-left: 0!important;
-  }
-} */
-
 nav a {
   font-weight: bold;
   color: #2c3e50;
@@ -186,5 +190,15 @@ button.li-btn {
 }
 .input-search:focus {
   border: 1px solid silver !important;
+}
+.badge-danger {
+  border: 1px solid red !important;
+  background-color: red !important;
+  color: white !important;
+  height: 22px !important;
+}
+
+ul > .hover-item-menu:hover {
+  background-color: springgreen !important;
 }
 </style>

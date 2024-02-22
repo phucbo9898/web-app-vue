@@ -23,6 +23,7 @@
                                 {{ $t("common.field.required") }}
                             </span>
                         </label>
+                        <span>{{newMem.email}}</span>
                         <input
                             type="text"
                             class="form-control"
@@ -228,11 +229,6 @@ import { RegisterMember } from "@/models";
 @Component
 export default class LayoutAuth extends Vue {
     private newMem: RegisterMember = new RegisterMember();
-    private name: String = '';
-    private email: String = '';
-    private password: String = '';
-    private phone: String = '';
-    private address: String = '';
     private showErrLogin: boolean = false;
     private msgErrLogin: String = '';
     private showPw: String = "fa-eye-slash";
@@ -306,9 +302,12 @@ export default class LayoutAuth extends Vue {
     }
 
     onReset() {
-        this.email = '';
-        this.name = '';
-        this.password = '';
+        this.newMem.email = '';
+        this.newMem.password = '';
+        this.newMem.first_name = '';
+        this.newMem.last_name = '';
+        this.newMem.phone_number = '';
+        this.newMem.address = '';
     }
 
     modalSuccessClose() {

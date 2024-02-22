@@ -4,8 +4,12 @@ import HomeView from '../views/HomeView.vue'
 import LayoutHome from '@/layouts/LayoutHome.vue'
 import LayoutAbout from '@/layouts/LayoutAbout.vue'
 import LayoutAuth from '@/layouts/LayoutAuth.vue'
+import LayoutSetting from '@/layouts/LayoutSetting.vue'
+import VueMeta from "vue-meta";
+import store from '@/store'
 
 Vue.use(VueRouter)
+Vue.use(VueMeta)
 
 const routes: Array<RouteConfig> = [
   {
@@ -14,7 +18,8 @@ const routes: Array<RouteConfig> = [
     component: () => import('@/views/HomeView.vue'),
     meta: {
       layout: LayoutHome,
-      title: 'Home page'
+      title: 'Home page',
+      requireAuth: false
     }
   },
   // {
@@ -31,7 +36,8 @@ const routes: Array<RouteConfig> = [
     component: () => import('@/views/AboutView.vue'),
     meta: {
       layout: LayoutAbout,
-      title: 'About page'
+      title: 'About page',
+      requireAuth: true
     }
   },
   {
@@ -50,6 +56,72 @@ const routes: Array<RouteConfig> = [
     meta: {
       layout: LayoutAuth,
       title: 'Register'
+    }
+  },
+  {
+    path: '/setting',
+    redirect: '/setting',
+    component: LayoutSetting,
+    meta: {
+      title: 'Setting Account',
+      requiresAuth: true
+    },
+    children: [
+      {
+        path: 'account-information',
+        name: 'account-information',
+        component: () => import('@/views/Setting/SettingAccount.vue'),
+        meta: {
+          title: 'Account information',
+          requiresAuth: true
+        }
+      },
+      {
+        path: 'change-profile',
+        name: 'change-profile',
+        component: () => import('@/views/Setting/SettingInformation.vue'),
+        meta: {
+          title: 'Change the profile',
+          requiresAuth: true
+        }
+      },
+      {
+        path: 'change-password',
+        name: 'change-password',
+        component: () => import('@/views/Setting/SettingChangePassword.vue'),
+        meta: {
+          title: 'Change the password',
+          requiresAuth: true
+        }
+      },
+      {
+        path: 'change-email',
+        name: 'change-email',
+        component: () => import('@/views/Setting/SettingChangeEmail.vue'),
+        meta: {
+          title: 'Change the email',
+          requiresAuth: true
+        }
+      },
+      {
+        path: 'change-language',
+        name: 'change-language',
+        component: () => import('@/views/Setting/SettingLanguage.vue'),
+        meta: {
+          title: 'Change the language',
+          requiresAuth: true
+        }
+      }
+    ]
+  },
+  {
+    path: '/verify',
+    name: 'verify-email',
+    component: () => import('@/views/Setting/VerifyEmail.vue'),
+    meta: {
+      layout: LayoutAuth,
+      title: 'Verify email',
+      requiresAuth: false
     }
   }
 ]
@@ -82,6 +154,13 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta?.title + '| example'
+  let token = store.state.auth.token
+  if (to.matched.some(record => record.meta.requireAuth) && !token) {
+    next({
+      path: '/login',
+      query: { redirect: to.fullPath }
+    })
+  }
   next()
 })
 
