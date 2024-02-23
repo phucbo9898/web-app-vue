@@ -18,6 +18,10 @@ class NotificationServices {
     getSlide() {
         return axiosApiInstance.get(`${Const.api_url}get-slide`)
     }
+
+    getCategories() {
+        return axiosApiInstance.get(`${Const.api_url}get-categories`)
+    }
 }
 
 export default new NotificationServices

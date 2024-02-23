@@ -13,11 +13,15 @@ import 'bootstrap/dist/js/bootstrap';
 import BlockUi from './store/modules/BlockUi'
 import { getModule } from 'vuex-module-decorators'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Swiper, { Autoplay, Pagination, Navigation } from 'swiper'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/swiper.css'
 // @ts-ignore
 // import Vidle from 'v-idle'
 // Vue.use(Vidle)
 const CommonModule = getModule(BlockUi, store)
+Swiper.use([Autoplay, Pagination, Navigation])
+Vue.use(VueAwesomeSwiper)
 
 Component.registerHooks([
   'beforeRouteEnter',

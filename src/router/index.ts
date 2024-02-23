@@ -123,6 +123,16 @@ const routes: Array<RouteConfig> = [
       title: 'Verify email',
       requiresAuth: false
     }
+  },
+  {
+    path: '/category/:categoryId',
+    name: 'category-detail',
+    component: () => import('@/views/Setting/VerifyEmail.vue'),
+    meta: {
+      layout: LayoutAuth,
+      title: 'Verify email',
+      requiresAuth: false
+    }
   }
 ]
 

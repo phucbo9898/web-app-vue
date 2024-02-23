@@ -21,14 +21,7 @@
               v-model="search_category_id"
             >
               <option value="0">Tất cả</option>
-              <option value="1">CPU - Bộ vi xử lý</option>
-              <option value="2">VGA - Card màn hình</option>
-              <option value="3">Mainbroad - Bo mạch chủ</option>
-              <option value="4">RAM - Bộ nhớ</option>
-              <option value="5">Ổ cứng</option>
-              <option value="6">PSU - Nguồn máy tính</option>
-              <option value="7">Tai nghe</option>
-              <option value="8">Chuột - Bàn phím</option>
+              <option :value="category.id" v-for="category in categories" :key="category.id">{{ category.name }}</option>
             </select>
             <div class="hm-searchbox">
               <input
@@ -81,12 +74,14 @@
 </template>
 
 <script lang="ts">
+import NotificationServices from "@/services/NotificationServices";
 import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class HeaderMiddle extends Vue {
   public price: number = 1000000000
   public search_category_id: any = 0
   public keywork: any = ''
+  public categories: any = []
   private config: any = {
     options: [
       {
@@ -105,6 +100,22 @@ export default class HeaderMiddle extends Vue {
     borderRadius: "1.5em",
     border: "1px solid gray",
     width: 180
+  }
+
+  created() {
+    this.getListCategories()
+  }
+
+  getListCategories() {
+    NotificationServices.getCategories()
+      .then((res) => {
+        if (res.status === 200) {
+          this.categories = res.data;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   handleSubmit() {

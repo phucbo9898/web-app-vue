@@ -1,23 +1,39 @@
 <template>
-  <div class="container d-flex">
-    <div>
-      <div class="border text-center" style="background-color: #406ccf; color: white !important;">
-        <h3>List Categories</h3>
+  <div class="container">
+    <div class="d-flex">
+      <div class="col-md-2" style="width: 20% !important;">
+        <div class="border text-center" style="background-color: #406ccf; color: white !important;">
+          <h3>List Categories</h3>
+        </div>
+        <ul class="menu list-style-none" style="padding-left: 0px !important;">
+          <li>
+            <ul class="list-style-none" style="padding-left: 0px !important; background-color: #406ccf;">
+              <li class="px-3 py-2" v-for="category in categories" :key="category.id">
+                <router-link :to="{
+                  name: 'category-detail',
+                  params: { categoryId: category.id }  
+                }">{{ category.name }}</router-link>
+              </li>
+            </ul>
+          </li>
+        </ul>
       </div>
-      <ul class="menu list-style-none" style="padding-left: 0px !important;">
-        <li>
-          <ul class="list-style-none" style="padding-left: 0px !important; background-color: #406ccf;">
-            <li class="px-3 py-2"><router-link to="">CPU - Bộ vi xử lý</router-link></li>
-            <li class="px-3 py-2"><router-link to="">VGA - Card màn hình</router-link></li>
-            <li class="px-3 py-2"><router-link to="">Mainbroad - Bo mạch chủ</router-link></li>
-            <li class="px-3 py-2"><router-link to="">RAM - Bộ nhớ</router-link></li>
-            <li class="px-3 py-2"><router-link to="">Ổ cứng</router-link></li>
-            <li class="px-3 py-2"><router-link to="">PSU - Nguồn máy tính</router-link></li>
-            <li class="px-3 py-2"><router-link to="">Tai nghe</router-link></li>
-            <li class="px-3 py-2"><router-link to="">Chuột - Bàn phím</router-link></li>
-          </ul>
-        </li>
-      </ul>
+      <div class="col-md-10 ml-10">
+        <Swiper
+          ref="swiper1"
+          class="swiper w-100 height-cus"
+          :options="swiperOption"
+        >
+          <SwiperSlide
+            v-for="banner in banners"
+            :key="banner.id"
+            class="cursor-pointer"
+            style=" object-fit: contain !important; background-color: black !important;"
+          >
+            <img class="w-100" :src="banner.image" alt="banner" style="height: 445px !important; object-fit: cover;"/>
+          </SwiperSlide>
+        </Swiper>
+      </div>
     </div>
     <!-- <input type="text" class="form-control" v-model="msg" style="width: 20%">
     <button @click="handleNotification">click me</button> -->
@@ -30,18 +46,33 @@ import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 import NotificationServices from '@/services/NotificationServices';
 import axios from 'axios';
 import store from '@/store';
+import Swiper, { Navigation, SwiperOptions } from 'swiper'
 @Component({
   components: {
     HelloWorld,
-  },
+      },
 })
 export default class HomeView extends Vue {
   private msg: any = ''
   private logo: any = require('@/assets/logo-fe.png')
-  private banners: any = {}
+  private banners: any = []
+  private categories: any = []
   created() {
     console.log('Home View Created');
     this.getListBanner()
+    this.getListCategories()
+  }
+
+  public swiperOption: SwiperOptions = {
+    initialSlide: 0,
+    loop: true,
+    slidesPerView: 1,
+    spaceBetween: 10,
+    autoplay: {
+      delay: 3000,
+    },
+    centeredSlides: true,
+    centeredSlidesBounds: true
   }
 
   getListBanner() {
@@ -49,8 +80,6 @@ export default class HomeView extends Vue {
       .then((res) => {
         if (res.status === 200) {
           this.banners = res.data;
-          console.log(this.banners);
-          
         }
       })
       .catch((error) => {
@@ -58,19 +87,18 @@ export default class HomeView extends Vue {
       })
   }
 
-  public swiperOption: SwiperOptions = {
-    spaceBetween: 10,
-    speed:1000,
-    rewind: true,
-    autoplay: {
-      delay: 3000,
-    },
-    breakpoints: {
-      600 : {slidesPerView : 2},
-      700 : {slidesPerView: 3},
-      1024 : {slidesPerView: 5},
-    }
+  getListCategories() {
+    NotificationServices.getCategories()
+      .then((res) => {
+        if (res.status === 200) {
+          this.categories = res.data;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
+
 
   handleNotification() {
     // var title = 'Welcome to Your Vue.js + TypeScript App'
