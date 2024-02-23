@@ -5,46 +5,40 @@
           <!-- Begin Header Logo Area -->
           <div class="col-lg-3 text-end">
             <div class="logo pb-sm-30 pb-xs-30">
-              <a href="http://webpc.test">
+              <router-link :to="{ name: 'home' }">
                 <img
                   src="../assets/logo-fe.png"
                   alt=""
                   style="width: 75px"
                 />
-              </a>
+              </router-link>
             </div>
           </div>
           <div class="col-lg-6" style="margin: auto !important;">
-            <div>
-              <form
-                action="http://webpc.test/search"
-                class="hm-searchbox"
-                method="GET"
-              >
-                <select
-                  class="nice-select select-search-category"
-                  name="search_category_id"
-                >
-                  <option value="0">Tất cả</option>
-                  <option value="1">CPU - Bộ vi xử lý</option>
-                  <option value="2">VGA - Card màn hình</option>
-                  <option value="3">Mainbroad - Bo mạch chủ</option>
-                  <option value="4">RAM - Bộ nhớ</option>
-                  <option value="5">Ổ cứng</option>
-                  <option value="6">PSU - Nguồn máy tính</option>
-                  <option value="7">Tai nghe</option>
-                  <option value="8">Chuột - Bàn phím</option>
-                </select>
-                <input
-                  type="text"
-                  placeholder="Nhập giá trị cần tìm kiếm"
-                  name="search_key"
-                  class="input-search"
-                />
-                <button class="li-btn" type="submit">
-                  <i class="fa fa-search"></i>
-                </button>
-              </form>
+            <select
+              class="nice-select select-search-category"
+              name="search_category_id"
+              v-model="search_category_id"
+            >
+              <option value="0">Tất cả</option>
+              <option value="1">CPU - Bộ vi xử lý</option>
+              <option value="2">VGA - Card màn hình</option>
+              <option value="3">Mainbroad - Bo mạch chủ</option>
+              <option value="4">RAM - Bộ nhớ</option>
+              <option value="5">Ổ cứng</option>
+              <option value="6">PSU - Nguồn máy tính</option>
+              <option value="7">Tai nghe</option>
+              <option value="8">Chuột - Bàn phím</option>
+            </select>
+            <div class="hm-searchbox">
+              <input
+                type="text"
+                placeholder="Nhập giá trị cần tìm kiếm"
+                name="search_key"
+                class="input-search form-control"
+                v-model="keywork"
+              />
+              <button class="li-btn" @click="handleSubmit"><i class="fa fa-search"></i></button>
             </div>
           </div>
           <div class="col-lg-3">
@@ -63,13 +57,16 @@
         </div>
     </nav>
 
-    <div class="border-top border-bottom" style="background-color: silver">
+    <div class="border-top border-bottom" style="background-color: #406ccf;">
       <ul class="d-flex px-5" style="width: 100% !important; font-size: 20px !important; margin-bottom: 0 !important; padding-left: 285px !important;">
         <li class="hover-item-menu p-3 text-center" style="width: 6%">
           <router-link style="text-decoration: none !important; color: white !important;" to="/">Home</router-link>
         </li>
         <li class="hover-item-menu p-3 text-center" style="width: 6%">
           <router-link style="text-decoration: none !important; color: white !important;" to="/about">About</router-link>
+        </li>
+        <li class="hover-item-menu p-3 text-center menu" style="width: 9%">
+          <router-link class="menu-categories" style="text-decoration: none !important; color: white !important;" to="/about">Categories</router-link>
         </li>
         <li class="hover-item-menu p-3 text-center" style="width: 9%">
           <router-link style="text-decoration: none !important; color: white !important;" to="">Introduction</router-link>
@@ -79,6 +76,7 @@
         </li>
       </ul>
     </div>
+    
   </div>
 </template>
 
@@ -87,6 +85,33 @@ import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class HeaderMiddle extends Vue {
   public price: number = 1000000000
+  public search_category_id: any = 0
+  public keywork: any = ''
+  private config: any = {
+    options: [
+      {
+        value: "option 1"
+      },
+      {
+        value: "option 2"
+      },
+      {
+        value: "option 3"
+      }
+    ],
+    placeholder: "Placeholder",
+    backgroundColor: "#cde4f5",
+    textColor: "black",
+    borderRadius: "1.5em",
+    border: "1px solid gray",
+    width: 180
+  }
+
+  handleSubmit() {
+    console.log(this.search_category_id);
+    console.log(this.keywork);
+    
+  }
 }
 </script>
 
@@ -103,10 +128,6 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 
-.w-115px {
-  width: 115px !important;
-}
-
 li {
   list-style: none;
 }
@@ -119,7 +140,7 @@ li {
     min-width: 600px;
     height: 45px;
     float: left;
-    margin-left: 15px;
+    margin-left: 5px;
 }
 .hm-searchbox input {
     font-size: 13px;
@@ -145,8 +166,8 @@ button.li-btn {
     transition: all 0.3s ease-in-out;
     cursor: pointer;
 }
-.hm-searchbox .nice-select.select-search-category {
-    width: 115px;
+.hm-searchbox > .nice-select > .select-search-category {
+    width: 50px;
     line-height: 43px;
     height: 43px;
     margin: 0;
@@ -172,7 +193,7 @@ button.li-btn {
     font-family: inherit;
     font-size: 14px;
     font-weight: normal;
-    height: 42px;
+    height: 45px;
     line-height: 40px;
     outline: none;
     padding-left: 18px;
@@ -199,6 +220,8 @@ button.li-btn {
 }
 
 ul > .hover-item-menu:hover {
-  background-color: springgreen !important;
+  background-color: rgb(18, 55, 216) !important;
 }
+
+
 </style>

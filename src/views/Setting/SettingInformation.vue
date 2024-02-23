@@ -92,7 +92,7 @@
                     'border-danger': (touched || invalid) && errors[0],
                   }"
                   class="form-control"
-                  v-model="profile.name"
+                  v-model="profile.first_name"
                   autocomplete="off"
                 />
               </div>
@@ -132,7 +132,7 @@
                     'border-danger': (touched || invalid) && errors[0],
                   }"
                   class="form-control"
-                  v-model="profile.name"
+                  v-model="profile.last_name"
                   autocomplete="off"
                 />
               </div>
@@ -154,7 +154,7 @@
           <ValidationProvider
             v-slot="{ errors, touched }"
             :rules="{
-              required: true,
+              
               max: 255,
               no_script_tag: true,
             }"
@@ -194,7 +194,7 @@
           <ValidationProvider
             v-slot="{ errors, touched }"
             :rules="{
-              required: true,
+              
               max: 255,
               no_script_tag: true,
             }"
@@ -318,7 +318,8 @@ export default class SettingInformation extends Vue {
       let formData = new FormData();
       formData.append("image", this.img_base64);
       formData.append("img_name", this.image_name);
-      formData.append("name", this.profile.name);
+      formData.append("first_name", this.profile.first_name);
+      formData.append("last_name", this.profile.last_name);
       formData.append("phone", this.profile.phone);
       formData.append("address", this.profile.address);
       this.$blockui.show();
