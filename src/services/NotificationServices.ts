@@ -14,14 +14,6 @@ class NotificationServices {
     pushNotifications(params:any) {
         return axiosApiInstance.post(`${Const.api_url}auth/send-notification`, params)
     }
-
-    getSlide() {
-        return axiosApiInstance.get(`${Const.api_url}get-slide`)
-    }
-
-    getCategories() {
-        return axiosApiInstance.get(`${Const.api_url}get-categories`)
-    }
 }
 
 export default new NotificationServices

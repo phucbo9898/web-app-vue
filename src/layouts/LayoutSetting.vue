@@ -1,9 +1,8 @@
 <template>
   <div class="min-h-screen d-flex flex-column pb-17 pb-xl-0">
-    <!-- <TestView v-if="$store.state.auth.token"/> -->
     <HeaderTop />
     <HeaderMiddle />
-    <main class="flex-1 py-3 py-xl-5 order-2">
+    <main class="flex-1 py-3 py-xl-5">
       <div class="container">
         <div class="d-xl-flex mt-2 mt-xl-6 mb-xl-15">
           <router-view class="order-2 flex-1 ml-10 w-82"></router-view>
@@ -11,7 +10,7 @@
         </div>
       </div>
     </main>
-    <!-- <Footer /> -->
+    <Footer />
   </div>
 </template>
 

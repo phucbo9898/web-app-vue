@@ -58,9 +58,6 @@
         <li class="hover-item-menu p-3 text-center" style="width: 6%">
           <router-link style="text-decoration: none !important; color: white !important;" to="/about">About</router-link>
         </li>
-        <li class="hover-item-menu p-3 text-center menu" style="width: 9%">
-          <router-link class="menu-categories" style="text-decoration: none !important; color: white !important;" to="/about">Categories</router-link>
-        </li>
         <li class="hover-item-menu p-3 text-center" style="width: 9%">
           <router-link style="text-decoration: none !important; color: white !important;" to="">Introduction</router-link>
         </li>
@@ -74,7 +71,7 @@
 </template>
 
 <script lang="ts">
-import NotificationServices from "@/services/NotificationServices";
+import HomeInformationServices from "@/services/HomeInformationServices";
 import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class HeaderMiddle extends Vue {
@@ -82,32 +79,13 @@ export default class HeaderMiddle extends Vue {
   public search_category_id: any = 0
   public keywork: any = ''
   public categories: any = []
-  private config: any = {
-    options: [
-      {
-        value: "option 1"
-      },
-      {
-        value: "option 2"
-      },
-      {
-        value: "option 3"
-      }
-    ],
-    placeholder: "Placeholder",
-    backgroundColor: "#cde4f5",
-    textColor: "black",
-    borderRadius: "1.5em",
-    border: "1px solid gray",
-    width: 180
-  }
 
   created() {
     this.getListCategories()
   }
 
   getListCategories() {
-    NotificationServices.getCategories()
+    HomeInformationServices.getCategories()
       .then((res) => {
         if (res.status === 200) {
           this.categories = res.data;
