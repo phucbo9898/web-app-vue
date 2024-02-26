@@ -11,15 +11,23 @@ const AuthModule = getModule(Auth, store)
 
 class HomeInformationServices {
     getSlide() {
-        return axiosApiInstance.get(`${Const.api_url}get-slide`)
+        return axios.get(`${Const.api_url}get-slide`)
     }
 
     getCategories() {
-        return axiosApiInstance.get(`${Const.api_url}get-categories`)
+        return axios.get(`${Const.api_url}get-categories`)
     }
 
     getDataInformationHome() {
-        return axiosApiInstance.get(`${Const.api_url}get-data-home`)
+        return axios.get(`${Const.api_url}get-data-home`)
+    }
+
+    getListArticles() {
+        return axios.get(`${Const.api_url}get-articles`)
+    }
+
+    getDetailArticle(articleId: number) {
+        return axios.get(`${Const.api_url}get-detail-article/${articleId}`)
     }
 }
 

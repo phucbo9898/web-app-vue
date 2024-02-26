@@ -382,12 +382,17 @@
                   </div>
                   <div class="mt-3">
                     <router-link
-                      to=""
-                      class="text-decoration-none fs-13"
+                      :to="{
+                        name: 'article-detail',
+                        params: { articleId: article.id },
+                      }"
+                      class="hover-menu text-decoration-none fs-13"
                       style="color: silver"
                       >Xem thêm ...</router-link
                     >
                   </div>
+
+                  <div class="p-2 border" style="background-color: rgb(221, 218, 218); border-left: 5px solid #2095d9 !important;">{{ article.description }}</div>
                 </div>
               </div>
             </div>

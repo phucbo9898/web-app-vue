@@ -129,11 +129,40 @@ const routes: Array<RouteConfig> = [
     name: 'category-detail',
     component: () => import('@/views/Setting/VerifyEmail.vue'),
     meta: {
-      layout: LayoutAuth,
-      title: 'Verify email',
+      layout: LayoutHome,
+      title: 'Category detail',
       requiresAuth: false
     }
-  }
+  },
+  {
+    path: '/article',
+    redirect: '/article',
+    component: LayoutHome,
+    // meta: {
+    //   title: 'List article',
+    //   requiresAuth: false
+    // },
+    children: [
+      {
+        path: 'list',
+        name: 'list-article',
+        component: () => import('@/views/Article/ArticleView.vue'),
+        meta: {
+          title: 'List article',
+          requiresAuth: true
+        }
+      },
+      {
+        path: ':articleId',
+        name: 'article-detail',
+        component: () => import('@/views/Article/ArticleDetail.vue'),
+        meta: {
+          title: 'Detail article',
+          requiresAuth: false
+        }
+      }
+    ]
+  },
 ]
 
 const router = new VueRouter({

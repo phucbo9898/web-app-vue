@@ -56,6 +56,9 @@
           <router-link style="text-decoration: none !important; color: white !important;" to="/">Home</router-link>
         </li>
         <li class="hover-item-menu p-3 text-center" style="width: 6%">
+          <router-link style="text-decoration: none !important; color: white !important;" to="/article/list">Articles</router-link>
+        </li>
+        <li class="hover-item-menu p-3 text-center" style="width: 6%">
           <router-link style="text-decoration: none !important; color: white !important;" to="/about">About</router-link>
         </li>
         <li class="hover-item-menu p-3 text-center" style="width: 9%">
