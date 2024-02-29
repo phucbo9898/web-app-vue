@@ -75,6 +75,8 @@ export default class App extends Vue {
           })
         }, 10000);
       })
+
+      // Web Push certificates = vapidKey
       getToken(messaging, { vapidKey: 'BEN93gwBJii2jWUMFNGlHDEqrtl8L8U8IbsNgePQliwZ8tLF0QRyWCSmQYukEfb49rf1l4rplIKFPTndEFw-Kb8' }).then((currentToken) => {
         if (currentToken) {
           // Send the token to your server and update the UI if necessary

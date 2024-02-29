@@ -163,6 +163,36 @@ const routes: Array<RouteConfig> = [
       }
     ]
   },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: () => import('@/views/Cart/Cart.vue'),
+    meta: {
+      layout: LayoutHome,
+      title: 'Cart',
+      requiresAuth: false
+    }
+  },
+  {
+    path: '/product/:productId',
+    name: 'product-detail',
+    component: () => import('@/views/Product/ProductDetail.vue'),
+    meta: {
+      layout: LayoutHome,
+      title: 'Product detail',
+      requiresAuth: false
+    }
+  },
+  {
+    path: '/favorite-product',
+    name: 'favorite-product',
+    component: () => import('@/views//Product/FavoriteProduct.vue'),
+    meta: {
+      layout: LayoutHome,
+      title: 'Favorite product',
+      requiresAuth: true
+    }
+  }
 ]
 
 const router = new VueRouter({

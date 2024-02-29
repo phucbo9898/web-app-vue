@@ -80,7 +80,14 @@
                 :key="product_new.id"
               >
                 <div class="product-image">
-                  <img :src="product_new.image" alt="Li's Product Image" />
+                  <router-link
+                    :to="{
+                      name: 'product-detail',
+                      params: { productId: product_new.id }
+                    }"
+                  >
+                    <img :src="product_new.image" alt="Li's Product Image" />
+                  </router-link>
                   <div>
                     <span :style="handleQuantity(product_new.quantity).color">{{
                       handleQuantity(product_new.quantity).text
@@ -90,7 +97,10 @@
                 <div class="product-desc">
                   <div style="height: 25px !important">
                     <router-link
-                      to=""
+                      :to="{
+                        name: 'product-detail',
+                        params: { productId: product_new.id }
+                      }"
                       class="text-decoration-none font-weight-bold"
                       >{{ handleLongText(product_new.name).text }}</router-link
                     >
@@ -133,6 +143,7 @@
                   <button
                     @click="addToCart(product_new)"
                     class="btn btn-primary mr-10"
+                    :class="product_new.quantity <= 0 ? 'disabled' : ''"
                   >
                     Add to cart
                   </button>
@@ -142,8 +153,13 @@
                   >
                     <i class="far fa-heart"></i>
                   </button>
-                  <router-link to="" class="btn btn-light"
-                    ><i class="fa fa-eye"></i
+                  <router-link
+                    :to="{
+                      name: 'product-detail',
+                      params: { productId: product_new.id }
+                    }"
+                    class="btn btn-light"
+                  ><i class="fa fa-eye"></i
                   ></router-link>
                 </div>
               </div>
@@ -170,7 +186,14 @@
                 :key="product_best_pay.id"
               >
                 <div class="product-image">
-                  <img :src="product_best_pay.image" alt="Li's Product Image" />
+                  <router-link
+                    :to="{
+                      name: 'product-detail',
+                      params: { productId: product_best_pay.id }
+                    }"
+                  >
+                    <img :src="product_best_pay.image" alt="Li's Product Image" />
+                  </router-link>
                   <div>
                     <span
                       :style="handleQuantity(product_best_pay.quantity).color"
@@ -183,7 +206,10 @@
                 <div class="product-desc">
                   <div style="height: 25px !important">
                     <router-link
-                      to=""
+                      :to="{
+                        name: 'product-detail',
+                        params: { productId: product_best_pay.id }
+                      }"
                       class="text-decoration-none font-weight-bold"
                       >{{
                         handleLongText(product_best_pay.name).text
@@ -231,15 +257,25 @@
                   </div>
                 </div>
                 <div class="product-action d-flex">
-                  <button @click="addToCart" class="btn btn-primary mr-10">
+                  <button
+                    @click="addToCart"
+                    class="btn btn-primary mr-10"
+                    :class="product_best_pay.quantity <= 0 ? 'disabled' : ''"
+                  >
                     Add to cart
                   </button>
-                  <button @click="addToFavorite" class="btn btn-light mr-5">
+                  <button @click="addToFavorite(product_best_pay)" class="btn btn-light mr-5">
                     <i class="far fa-heart"></i>
                   </button>
-                  <router-link to="" class="btn btn-light"
-                    ><i class="fa fa-eye"></i
-                  ></router-link>
+                  <router-link
+                    :to="{
+                      name: 'product-detail',
+                      params: { productId: product_best_pay.id }
+                    }"
+                    class="btn btn-light"
+                  >
+                    <i class="fa fa-eye"></i>
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -271,7 +307,14 @@
                 :key="product.id"
               >
                 <div class="product-image">
-                  <img :src="product.image" alt="Li's Product Image" />
+                  <router-link
+                    :to="{
+                      name: 'product-detail',
+                      params: { productId: product.id }
+                    }"
+                  >
+                    <img :src="product.image" alt="Li's Product Image" />
+                  </router-link>
                   <div>
                     <span :style="handleQuantity(product.quantity).color">{{
                       handleQuantity(product.quantity).text
@@ -281,7 +324,10 @@
                 <div class="product-desc">
                   <div style="height: 25px !important">
                     <router-link
-                      to=""
+                      :to="{
+                        name: 'product-detail',
+                        params: { productId: product.id }
+                      }"
                       class="text-decoration-none font-weight-bold"
                       >{{ handleLongText(product.name).text }}</router-link
                     >
@@ -321,15 +367,25 @@
                   </div>
                 </div>
                 <div class="product-action d-flex">
-                  <button @click="addToCart" class="btn btn-primary mr-10">
+                  <button
+                    @click="addToCart(product)"
+                    class="btn btn-primary mr-10"
+                    :class="product.quantity <= 0 ? 'disabled' : ''"
+                  >
                     Add to cart
                   </button>
-                  <button @click="addToFavorite" class="btn btn-light mr-5">
+                  <button @click="addToFavorite(product)" class="btn btn-light mr-5">
                     <i class="far fa-heart"></i>
                   </button>
-                  <router-link to="" class="btn btn-light"
-                    ><i class="fa fa-eye"></i
-                  ></router-link>
+                  <router-link
+                    :to="{
+                      name: 'product-detail',
+                      params: { productId: product.id }
+                    }"
+                    class="btn btn-light"
+                  >
+                    <i class="fa fa-eye"></i>
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -391,8 +447,6 @@
                       >Xem thêm ...</router-link
                     >
                   </div>
-
-                  <div class="p-2 border" style="background-color: rgb(221, 218, 218); border-left: 5px solid #2095d9 !important;">{{ article.description }}</div>
                 </div>
               </div>
             </div>
@@ -400,6 +454,9 @@
         </div>
       </section>
     </div>
+    <ModalSuccess :successMess="modalMess" />
+    <ModalError :errorMess="modalMess"  />
+    <ModalWarning :errorMess="modalMess"  />
     <!-- <input type="text" class="form-control" v-model="msg" style="width: 20%">
     <button @click="handleNotification">click me</button> -->
   </div>
@@ -407,7 +464,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 import HomeInformationServices from '@/services/HomeInformationServices';
 import NotificationServices from '@/services/NotificationServices';
 import axios from 'axios';
@@ -417,11 +473,7 @@ import Swiper, { Navigation, SwiperOptions } from 'swiper';
 import _ from 'lodash';
 import PreviewText from '@/helpers/PreviewText';
 import moment from 'moment';
-@Component({
-  components: {
-    HelloWorld,
-  },
-})
+@Component
 export default class HomeView extends Vue {
   private loading: boolean = true;
   private msg: any = '';
@@ -432,6 +484,7 @@ export default class HomeView extends Vue {
   private articles: any = [];
   private product_best_pays: any = [];
   private arrayProductByCategories: any = [];
+  private modalMess: string = ''
 
   created() {
     console.log('Home View Created');
@@ -501,10 +554,30 @@ export default class HomeView extends Vue {
   }
 
   addToCart(item: any) {
+    if (item.quantity <= 0) {
+      this.modalMess = 'response.data.message';
+      this.$bvModal.show("modal-error");
+    }
     console.log(item);
   }
 
   addToFavorite(item: any) {
+    HomeInformationServices.addFavoriteProduct(item.id)
+    .then((response) => {
+      if (response.status == 200) {
+        if (response.data.item.status === 200) {
+          this.modalMess = response.data.message;
+          this.$bvModal.show("modal-success");
+        } else {
+          this.modalMess = response.data.message;
+          this.$bvModal.show("modal-warning");
+        }
+      }
+    })
+    .catch((error) => {
+      this.modalMess = error.response.data.message;
+      this.$bvModal.show("modal-error");
+    })
     console.log(item);
   }
 

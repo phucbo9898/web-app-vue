@@ -29,6 +29,22 @@ class HomeInformationServices {
     getDetailArticle(articleId: number) {
         return axios.get(`${Const.api_url}get-detail-article/${articleId}`)
     }
+
+    addFavoriteProduct(productId: number) {
+        return axiosApiInstance.get(`${Const.api_url}auth/add-favorite-product/${productId}`)
+    }
+
+    getDetailProduct(productId: number) {
+        return axios.get(`${Const.api_url}get-detail-product/${productId}`)
+    }
+
+    getListFavorite() {
+        return axiosApiInstance.get(`${Const.api_url}get-list-favorite`)
+    }
+
+    removeFavoriteProduct(params: any) {
+        return axiosApiInstance.post(`${Const.api_url}remove-favorite-product`, params)
+    }
 }
 
 export default new HomeInformationServices

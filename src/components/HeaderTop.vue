@@ -31,7 +31,6 @@
             <div class="p-2">
               <router-link to="/register" class="text-decoration-none style-char">{{ $t("Đăng kí") }}</router-link>
             </div>
-            <div class="p-2 btn-logout" @click="logout"><span class="cursor-pointer">{{ $t("Đăng xuất") }}</span></div>
           </div>
         </div>
         <div v-else class="d-flex justify-content-between">
@@ -49,13 +48,16 @@
             {{ $store.state.userInfor.user.name }}
           </div>
           <div class="dropdown-menu">
-            <div class="p-2">
+            <div class="p-2 hover-char">
               <router-link to="/setting/change-profile" class="text-decoration-none style-char">{{ $t("Thông tin người dùng") }}</router-link>
             </div>
-            <div class="p-2">
-              <span class="style-char cursor-pointer">{{ $t("Thông tin đơn hàng") }}</span>
+            <div class="p-2 hover-char">
+              <router-link to="/favorite-product" class="text-decoration-none style-char">{{ $t("Sản phẩm yêu thích") }}</router-link>
             </div>
-            <div class="p-2 btn-logout" @click="logout"><span class="cursor-pointer">{{ $t("Đăng xuất") }}</span></div>
+            <div class="p-2 hover-char">
+              <span class="cursor-pointer style-char">{{ $t("Lịch sử đơn hàng") }}</span>
+            </div>
+            <div class="p-2 hover-char btn-logout" @click="logout"><span class="cursor-pointer style-char">{{ $t("Đăng xuất") }}</span></div>
           </div>
         </div>
       </div>
@@ -212,8 +214,10 @@ button.li-btn {
   font-weight: normal !important;
 }
 
-.px-200 {
-  padding-left: 200px !important;
-  padding-right: 200px !important;
+.hover-char:hover {
+  background-color: rgb(60, 153, 240);
+}
+.hover-char:hover > .style-char {
+  color: white !important;
 }
 </style>

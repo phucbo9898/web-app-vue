@@ -34,17 +34,22 @@
               <button class="li-btn" @click="handleSubmit"><i class="fa fa-search"></i></button>
             </div>
           </div>
-          <div class="col-lg-3">
+          <div class="col-lg-3" style="margin: auto;">
             <div class="d-flex">
-              <img
+              <router-link to="/cart">
+                <img
                   src="../assets/shopping-cart.png"
                   alt=""
                   style="width: 50px"
                 />
-              <div style="margin-left:10px !important;">
-                <span>Total quantity: 2</span> <br>
-                <span class="font-weight-bold" style="font-weight: bold !important; color: red !important;">Total money: {{ price.toLocaleString().replaceAll('.', ',')}} VNĐ</span>
+              </router-link>
+              <div class="py-2 mt-8">
+                <span class="font-weight-bold px-3" style="font-weight: bold !important; color: red !important;">{{ price.toLocaleString().replaceAll('.', ',')}} VNĐ</span>
               </div>
+
+              <!-- <div class="border text-center" style="width: 25px; height: 25px; border-radius: 50%; position: absolute; top: 22%; right: 21.6%; background-color: red; border: 0 !important;">
+                <span class="text-white">2</span>
+              </div> -->
             </div>
           </div>
         </div>
@@ -56,10 +61,7 @@
           <router-link style="text-decoration: none !important; color: white !important;" to="/">Home</router-link>
         </li>
         <li class="hover-item-menu p-3 text-center" style="width: 6%">
-          <router-link style="text-decoration: none !important; color: white !important;" to="/article/list">Articles</router-link>
-        </li>
-        <li class="hover-item-menu p-3 text-center" style="width: 6%">
-          <router-link style="text-decoration: none !important; color: white !important;" to="/about">About</router-link>
+          <router-link style="text-decoration: none !important; color: white !important;" to="/article/list">News</router-link>
         </li>
         <li class="hover-item-menu p-3 text-center" style="width: 9%">
           <router-link style="text-decoration: none !important; color: white !important;" to="">Introduction</router-link>
@@ -78,7 +80,7 @@ import HomeInformationServices from "@/services/HomeInformationServices";
 import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class HeaderMiddle extends Vue {
-  public price: number = 1000000000
+  public price: number = 0
   public search_category_id: any = 0
   public keywork: any = ''
   public categories: any = []

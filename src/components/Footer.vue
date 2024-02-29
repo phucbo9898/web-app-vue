@@ -1,7 +1,53 @@
 <template>
-  <div class="bg-footer d-none d-xl-block" style="background-color: silver">
+  <div class="bg-footer d-none d-xl-block" style="background-color: #f7f6f6">
     <div class="container">
-      <div class="row px-3 py-2">
+      <div class="row p-5 footer-shipping">
+        <div class="col-lg-3 col-md-6 col-sm-6 pb-sm-55 pb-xs-55">
+          <div class="li-shipping-inner-box">
+            <div class="shipping-icon">
+                <img src="@/assets/free_ship.png" alt="Shipping Icon">
+            </div>
+            <div class="shipping-text">
+              <h4>Free shipping</h4>
+              <p>Free return. See payment for the transaction date.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 pb-sm-55 pb-xs-55">
+          <div class="li-shipping-inner-box">
+            <div class="shipping-icon">
+              <img src="@/assets/cost_save.png" alt="Shipping Icon">
+            </div>
+            <div class="shipping-text">
+                <h4>Cost savings</h4>
+                <p>The cost of the product will be for the benefit of the customer.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 pb-xs-30">
+          <div class="li-shipping-inner-box">
+            <div class="shipping-icon">
+              <img src="@/assets/security.png" alt="Shipping Icon">
+            </div>
+            <div class="shipping-text">
+                <h4>Information security</h4>
+                <p>'Customer information will not be shared with third parties.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 pb-xs-30">
+          <div class="li-shipping-inner-box">
+            <div class="shipping-icon">
+              <img src="@/assets/support.png" alt="Shipping Icon">
+            </div>
+            <div class="shipping-text">
+                <h4>Support 24/7</h4>
+                <p>If you have questions? Please contact us immediately.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row px-3 py-4">
         <div class="col-xs-12 col-xl-5">
           <div class="d-flex align-items-end pb-2">
             <router-link to="/">
@@ -13,7 +59,7 @@
               />
             </router-link>
           </div>
-          <div class="color-footer">
+          <div class="color-item">
             <div>Trang web này hiện đang trong giai đoạn thử nghiệm và phát triển để hoàn thiện hơn trước khi đưa vào kinh doanh và thương mại hóa.</div>
             <div class="mt-3">Địa chỉ: Tòa Mitec, Yên Hòa, Cầu Giấy, Hà Nội, Việt Nam.</div>
             <div>Số điện thoại: 0969908298</div>
@@ -26,9 +72,9 @@
           <table width="100%">
             <thead>
               <tr>
-                <th class="color-footer p-1">Nổi Bật</th>
+                <th class="p-1">Nổi Bật</th>
                 <th>&ensp;</th>
-                <th class="color-footer p-1">Tính Năng</th>
+                <th class="p-1">Tính Năng</th>
                 <th>&ensp;</th>
               </tr>
             </thead>
@@ -40,39 +86,39 @@
                 <td>&ensp;</td>
               </tr>
               <tr>
-                <td class="color-footer p-1">
+                <td class="p-1">
                   <span class="color-footer">Miễn phí vận chuyển</span>
                 </td>
                 <td class="p-1">&ensp;</td>
-                <td class="color-footer p-1">
-                  <router-link to="/" class="color-footer"
+                <td class="p-1">
+                  <router-link to="/" class="color-item"
                     >Trang chủ</router-link
                   >
                 </td>
                 <td>&ensp;</td>
               </tr>
               <tr>
-                <td class="color-footer p-1">
+                <td class="p-1">
                   <span class="color-footer">Tiết kiệm chi phí</span>
                 </td>
                 <td>&ensp;</td>
-                <td class="color-footer p-1">
+                <td class="p-1">
                   <a
                     href="https://forms.gle/p1W9N4F8LQnePX7F9"
-                    class="color-footer"
                     target="_blank"
+                    class="color-item"
                     >Tin tức</a
                   >
                 </td>
                 <td>&ensp;</td>
               </tr>
               <tr>
-                <td class="color-footer p-1">
+                <td class="p-1">
                   <span class="color-footer" target="_blank">Bảo mật</span>
                 </td>
                 <td>&ensp;</td>
-                <td class="color-footer p-1">
-                  <router-link :to="{ name: 'partner' }" class="color-footer"
+                <td class="p-1">
+                  <router-link :to="{ name: 'partner' }" class="color-item"
                     >Về chúng tôi</router-link
                   >
                 </td>
@@ -81,11 +127,11 @@
               <tr>
                 <td class="color-footer p-1">Hỗ trợ 24/7</td>
                 <td>&ensp;</td>
-                <td class="color-footer p-1">
+                <td class="p-1">
                   <a
                     href="/white_paper.pdf"
                     target="_blank"
-                    class="color-footer"
+                    class="color-item"
                     >Liên hệ</a
                   >
                 </td>
@@ -108,13 +154,10 @@
           </div>
         </div>
         <div
-          class="d-xl-flex color-footer ff-ss fwl w-100"
+          class="d-xl-flex ff-ss fwl w-100"
           style="justify-content: center !important"
         >
-          <p class="color-footer"
-            >This project is made with <span class="text-danger">♥</span> Vũ Ngọc Phúc on &copy;
-            {{ yearNow }}</p
-          >
+          <p>This project is made with <span class="text-danger">♥</span> Vũ Ngọc Phúc on &copy; {{ yearNow }}</p>
         </div>
       </div>
     </div>
@@ -154,6 +197,14 @@ export default class TestView extends Vue {
 <style>
 .color-footer {
   text-decoration: none;
+  color: silver;
+}
+
+.color-item {
+  text-decoration: none;
   color: black;
+}
+td > .color-item:hover {
+  color: rgb(63, 118, 238);
 }
 </style>

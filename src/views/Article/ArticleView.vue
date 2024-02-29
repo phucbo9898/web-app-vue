@@ -6,7 +6,13 @@
     <div v-else>
       <div class="row" v-if="articles.length > 0">
         <div class="col-md-4 mt-40" v-for="article in articles" :key="article.id">
-          <div class="article-image">
+          <router-link
+            :to="{
+              name: 'article-detail',
+              params: { articleId: article.id },
+            }"
+            class="article-image"
+          >
             <img
               :src="article.image"
               alt="Li's Product Image"
@@ -16,11 +22,14 @@
                 object-fit: cover !important;
               "
             />
-          </div>
+          </router-link>
           <div class="article-desc mt-3">
             <div style="height: 50px !important">
               <router-link
-                to=""
+                :to="{
+                  name: 'article-detail',
+                  params: { articleId: article.id },
+                }"
                 class="text-decoration-none font-weight-bold"
                 >{{ handleLongText(article.name).text }}</router-link
               >
