@@ -410,7 +410,12 @@
                 v-for="article in articles"
                 :key="article.id"
               >
-                <div class="article-image">
+                <router-link
+                  :to="{
+                    name: 'article-detail',
+                    params: { articleId: article.id }
+                  }"
+                >
                   <img
                     :src="article.image"
                     alt="Li's Product Image"
@@ -420,23 +425,26 @@
                       object-fit: cover !important;
                     "
                   />
-                </div>
+                </router-link>
                 <div class="article-desc mt-3">
                   <div style="height: 50px !important">
                     <router-link
-                      to=""
+                      :to="{
+                        name: 'article-detail',
+                        params: { articleId: article.id },
+                      }"
                       class="text-decoration-none font-weight-bold"
                       >{{ handleLongText(article.name).text }}</router-link
                     >
                   </div>
-                  <div class="mt-3 d-flex justify-content-between">
-                    <span
-                      ><i class="fa fa-user"></i> {{ article.user.name }}
+                  <div class="mt-3" style="font-size: 11px; color: silver;">
+                    <span>
+                      <i class="fa fa-user"></i> {{ article.user.name }}
                       <i class="ml-10 far fa-calendar-alt"></i>
-                      {{ handleFormatDate(article.updated_at) }}</span
-                    >
+                      {{ handleFormatDate(article.updated_at) }}
+                    </span>
                   </div>
-                  <div class="mt-4" style="height: 50px !important">
+                  <div class="mt-2" style="height: 50px !important">
                     <span>{{ handleLongText(article.description).text }}</span>
                   </div>
                   <div class="mt-3">

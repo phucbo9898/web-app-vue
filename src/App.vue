@@ -17,6 +17,7 @@ import Auth from "./store/modules/Auth";
 import router from "./router";
 import Footer from "./components/Footer.vue";
 import { firebase } from '@/firebase'
+import UserService from "./services/UserService";
 const AuthModule = getModule(Auth, store)
 
 @Component({ components: { BlockView, Footer } })
@@ -47,7 +48,7 @@ export default class App extends Vue {
             var params = {
               token: token
             }
-            AuthService.updateDeviceToken(params)
+            UserService.updateDeviceToken(params)
               .then(response => {
                 console.log('token updated', response)
               })

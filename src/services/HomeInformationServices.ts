@@ -31,7 +31,7 @@ class HomeInformationServices {
     }
 
     addFavoriteProduct(productId: number) {
-        return axiosApiInstance.get(`${Const.api_url}auth/add-favorite-product/${productId}`)
+        return axiosApiInstance.get(`${Const.api_url}add-favorite-product/${productId}`)
     }
 
     getDetailProduct(productId: number) {

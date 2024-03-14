@@ -26,7 +26,7 @@
             <div class="article-name mt-20">
                 <h4>{{ articleDetail.name }}</h4>
             </div>
-            <div class="mt-3 d-flex justify-content-between">
+            <div class="mt-3" style="font-size: 11px; color: silver;">
               <span class="article-item">
                 <i class="fa fa-user"></i> {{ articleDetail.user.name }}
                 <i class="ml-10 far fa-calendar-alt"></i>

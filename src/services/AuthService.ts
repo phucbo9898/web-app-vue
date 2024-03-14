@@ -45,10 +45,6 @@ class AuthService {
   register(params: RegisterMember) {
     return axiosApiInstance.post(`${Const.api_url}auth/register`, params);
   }
-
-  updateDeviceToken(params: any) {
-    return axiosApiInstance.patch(`${Const.api_url}auth/update-device-token`, params);
-  }
 }
 
 export default new AuthService();
