@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import LayoutHome from '@/layouts/LayoutHome.vue'
 import LayoutAbout from '@/layouts/LayoutAbout.vue'
 import LayoutAuth from '@/layouts/LayoutAuth.vue'

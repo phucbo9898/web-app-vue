@@ -74,11 +74,7 @@ export default class LayoutAuth extends Vue {
     this.$blockui.show();
     AuthService.login(account)
       .then(async (response) => {
-        console.log(response);
-
         if (response.status == 200) {
-          console.log('token', response.data.item.token);
-          
           let token = response.data.item.token;
           if (token) {
             await AuthModule.SET_NEW_TOKEN(response.data.item.token);
@@ -105,8 +101,11 @@ export default class LayoutAuth extends Vue {
       .then(async (response) => {
         if (response.status === 200) {
           await UserInforModule.HANDLE_USER_PROFILE(response.data.item);
-          let path = this.$route.query.redirect ? String(this.$route.query.redirect) : '/'
-          window.location.href = window.location.origin + path;
+          this.$router.push({
+            path: this.$route.query.redirect
+              ? String(this.$route.query.redirect)
+              : '/'
+          })
         }
       })
       .catch((error) => {

@@ -8,88 +8,46 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { getModule } from "vuex-module-decorators";
 import AuthService from "./services/AuthService";
 import BlockView from "@/components/BlockView.vue";
 import store from "./store";
 import Auth from "./store/modules/Auth";
-import { initializeApp } from "firebase/app";
-import { getMessaging, getToken, onMessage} from "firebase/messaging";
 import router from "./router";
 import Footer from "./components/Footer.vue";
+import { firebase } from '@/firebase'
 const AuthModule = getModule(Auth, store)
 
 @Component({ components: { BlockView, Footer } })
 export default class App extends Vue {
   created() {
-    if (this.$store.state.auth.token) {
-      if ("Notification" in window) {
-        console.log("Notification supported");
-        if (Notification.permission !== 'granted') {
-          Notification.requestPermission().then((res) => {
-            if (res === 'denied') {
-              console.log("Notification access denied");
-            } else if (res === 'default') {
-              console.log("Notification permission not given");
-            }
-          })
-        }
-        const registerSW = async () => {
-          const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js', { scope: '/'});
-          console.log('registration', registration);
-          
-          return registration;
-        }
-        registerSW()
-      } else {
-        console.error("Notification not supported");
+    // Register service work
+    if ('serviceWorker' in navigator) {
+      const registerSW = async () => {
+        const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js')
+        return registration
       }
+      registerSW()
+    }
+  }
+
+  @Watch('$route.name')
+  watchChangeRouteName() {
+    console.log('change route name', this.$route.name);
+    console.log('window.Notification.permission', window.Notification.permission);
     
-
-      const app = initializeApp({
-        apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
-        authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOMAIN,
-        projectId: process.env.VUE_APP_FIREBASE_PROJECT_ID,
-        storageBucket: process.env.VUE_APP_FIREBASE_STORAGE_BUCKET,
-        messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID,
-        appId: process.env.VUE_APP_FIREBASE_APP_ID,
-        measurementId: process.env.VUE_APP_MEASUREMENT_ID
-      });
-      
-      const messaging = getMessaging();
-      onMessage(messaging, (payload: any) => {
-        console.log('payload', payload);
-        console.log(sessionStorage.getItem('url_redirect'));      
-        setTimeout(() => {
-          const noti = new Notification(payload.notification.title, {
-            body: payload.notification.body,
-            icon: require('@/assets/logo-fe.png')
-          })
-
-          noti.addEventListener('click', (event) => {
-            console.log('click', event);
-            
-            router.push(sessionStorage.getItem('url_redirect') as string)
-            sessionStorage.removeItem('url_redirect')
-          })
-        }, 10000);
-      })
-
-      // Web Push certificates = vapidKey
-      getToken(messaging, { vapidKey: 'BEN93gwBJii2jWUMFNGlHDEqrtl8L8U8IbsNgePQliwZ8tLF0QRyWCSmQYukEfb49rf1l4rplIKFPTndEFw-Kb8' }).then((currentToken) => {
-        if (currentToken) {
-          // Send the token to your server and update the UI if necessary
-          sessionStorage.setItem('currentToken', currentToken)
-          console.log("Current token: ", currentToken);
-          console.log('sessionStorage', sessionStorage.getItem('currentToken'));
-          console.log(this.$store.state.auth.token);
-          if (this.$store.state.auth.token) {
+    if (this.$store.state.auth.token) {
+      if (!window.Notification) return
+      if (window.Notification.permission === 'granted') {
+        const messaging = firebase.messaging()
+        console.log('messaging', messaging);
+        messaging.getToken({ vapidKey: process.env.VUE_APP_FIREBASE_VAPID_KEY}).then((token: any) => { 
+          if (token) {
             var params = {
-              token: currentToken
+              token: token
             }
-            console.log(params);
-            AuthService.updateDeviceToken({token: currentToken})
+            AuthService.updateDeviceToken(params)
               .then(response => {
                 console.log('token updated', response)
               })
@@ -97,20 +55,35 @@ export default class App extends Vue {
                 console.error(`Error! ${error}`);
               })
           }
-          
-          
-          // ...
-        } else {
-          // Show permission request UI
-          console.log('No registration token available. Request permission to generate one.');
-          // ...
-        }
-      }).catch((err) => {
-        console.log('An error occurred while retrieving token. ', err);
-        // ...
-      });
+        })
+
+        messaging.onMessage((payload: any) => {
+          const notificationPush = new Notification(payload.data.title, {
+            body: payload.data.body,
+            icon: require('@/assets/logo-fe.png')
+          })
+
+          notificationPush.addEventListener('click', () => {
+            router.push(payload.data.redirect_to)
+          })
+        })
+      } else {
+        window.Notification.requestPermission().then((permission: any) => {
+          console.log('Have permission to send notification')
+          console.log('permission check', permission);
+          if (permission === 'granted') {
+            window.location.reload()
+          }
+        })
+      }
     }
   }
+
+  @Watch('window.Notification.permission')
+  watchChangePermissionNoti() {
+    console.log('window.Notification.permission', window.Notification.permission);
+  }
+
   async logout() {
     await AuthService.logout()
       .then(response => {

@@ -47,7 +47,7 @@ class AuthService {
   }
 
   updateDeviceToken(params: any) {
-    return axiosApiInstance.patch(`${Const.api_url}auth/fcm-token`, params);
+    return axiosApiInstance.patch(`${Const.api_url}auth/update-device-token`, params);
   }
 }
 
