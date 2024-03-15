@@ -74,7 +74,11 @@ export default class LayoutSetting extends Vue {
   }
 
   handleRatePercent(totalRate: any) {
-    return Math.ceil(totalRate / (this.productDetail.rate_five_star + this.productDetail.rate_four_star + this.productDetail.rate_three_star + this.productDetail.rate_two_star + this.productDetail.rate_one_star) * 100)
+    if (totalRate > 0) {
+      return Math.ceil(totalRate / (this.productDetail.rate_five_star + this.productDetail.rate_four_star + this.productDetail.rate_three_star + this.productDetail.rate_two_star + this.productDetail.rate_one_star) * 100)
+    } else {
+      return 0
+    }
   }
 }
 </script>
