@@ -150,7 +150,7 @@
                   </button>
                   <button
                     @click="addToFavorite(product_new)"
-                    class="btn btn-light mr-5"
+                    class="btn btn-warning mr-5"
                   >
                     <i class="far fa-heart"></i>
                   </button>
@@ -266,7 +266,7 @@
                   >
                     Add to cart
                   </button>
-                  <button @click="addToFavorite(product_best_pay)" class="btn btn-light mr-5">
+                  <button @click="addToFavorite(product_best_pay)" class="btn btn-warning mr-5">
                     <i class="far fa-heart"></i>
                   </button>
                   <router-link
@@ -377,7 +377,7 @@
                   >
                     Add to cart
                   </button>
-                  <button @click="addToFavorite(product)" class="btn btn-light mr-5">
+                  <button @click="addToFavorite(product)" class="btn btn-warning mr-5">
                     <i class="far fa-heart"></i>
                   </button>
                   <router-link

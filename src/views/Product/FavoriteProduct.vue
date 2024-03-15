@@ -37,9 +37,9 @@
                     {{ handleQuantity(data.quantity).text }}
                 </span>
               </td>
-              <td class="col-md-1 vertical-align-middle">
-                <button class="btn btn-primary w-100" @click="addToCart(data)">Add to cart</button>
-                <button class="btn btn-light w-100" @click="removeFavorite(data.id)">Remove</button>
+              <td class="col-md-1 vertical-align-middle text-center">
+                <button class="btn btn-warning mr-5" @click="addToCart(data)"><i class="fas fa-shopping-cart" style="color: white;"></i></button>
+                <button class="btn btn-danger" @click="removeFavorite(data.id)"><i class="fas fa-trash-alt"></i></button>
               </td>
             </tr>
           </tbody>

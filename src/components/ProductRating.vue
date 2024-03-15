@@ -1,61 +1,80 @@
 <template>
-  <div class="min-h-screen d-flex flex-column pb-17 pb-xl-0">
-    <ul class="pl-0 shadow border bg-light" style="padding-left: 0 !important">
-      <li class="text-decoration-none list-style-none border-bottom px-4 py-3 text-center">
-        <div>
-          <span class="font-weight-bold fs-24">Setting</span>
+  <article class="container pt-10">
+    <section class="p-4">
+      <div ref="detailProductContent">
+        <div class="row g-3" v-if="productDetail">
+          <div class="border d-flex text-center">
+            <div class="p-5" style="padding-left: 5rem !important; padding-right: 5rem !important;">
+              <p class="fs-24">
+                <span class="fa fa-star" style="color:#ff9705; font-size: 80px"></span> <br>
+                <span>{{ productDetail.avg_score }}/5</span>
+              </p>
+            </div>
+            <div class="px-4 py-2">
+              <div class="d-flex px-3 py-2">
+                <span>
+                  <i class="fa fa-star" style="color:#ff9705;" v-for="rateFire in 5" :key="rateFire = Math.random()"></i>
+                </span>
+                <span class="ml-10">{{ productDetail.rate_five_star }} đánh giá ({{ handleRatePercent(productDetail.rate_five_star) }}%)</span>
+              </div>
+              <div class="d-flex px-3 py-2">
+                <span>
+                  <i class="fa fa-star" style="color:#ff9705;" v-for="rateFour in 4" :key="rateFour = Math.random()"></i>
+                  <i class="fa fa-star"></i>
+                </span>
+                <span class="ml-10">{{ productDetail.rate_four_star }} đánh giá ({{ handleRatePercent(productDetail.rate_four_star) }}%)</span>
+              </div>
+              <div class="d-flex px-3 py-2">
+                <span>
+                  <i class="fa fa-star" style="color:#ff9705;" v-for="rateThree in 3" :key="rateThree = Math.random()"></i>
+                  <i class="fa fa-star" v-for="notRateThree in 2" :key="notRateThree = Math.random()"></i>
+                </span>
+                <span class="ml-10">{{ productDetail.rate_three_star }} đánh giá ({{ handleRatePercent(productDetail.rate_three_star) }}%)</span>
+              </div>
+              <div class="d-flex px-3 py-2">
+                <span>
+                  <i class="fa fa-star" style="color:#ff9705;" v-for="rateTwo in 2" :key="rateTwo = Math.random()"></i>
+                  <i class="fa fa-star" v-for="notRateTwo in 3" :key="notRateTwo = Math.random()"></i>
+                </span>
+                <span class="ml-10">{{ productDetail.rate_two_star }} đánh giá ({{ handleRatePercent(productDetail.rate_two_star) }}%)</span>
+              </div>
+              <div class="d-flex px-3 py-2">
+                <span>
+                  <i class="fa fa-star" style="color:#ff9705;"></i>
+                  <i class="fa fa-star" v-for="notRateOne in 4" :key="notRateOne = Math.random()"></i>
+                </span>
+                <span class="ml-10">{{ productDetail.rate_one_star }} đánh giá ({{ handleRatePercent(productDetail.rate_one_star) }}%)</span>
+              </div>
+            </div>
+          </div>
         </div>
-      </li>
-      <li
-        v-for="menu in listMenu"
-        :key="menu.id"
-        class="list-style-none item-menu"
-        :class="$route.path.includes(menu.link) ? 'bg-secondary' : 'bg-light'"
-      >
-        <router-link
-          :to="menu.link"
-          class="text-decoration-none text-dark d-block px-4 py-3"
-          style="margin-right: 10px !important"
-          :class="$route.path.includes(menu.link) ? 'text-white' : 'text-dark'"
-          >
-          {{ menu.name }}
-        </router-link>
-      </li>
-    </ul>
-  </div>
+        <div class="row g-3" v-else>
+          <span class="text-center">Product details are being updated...</span>
+        </div>
+      </div>
+    </section>
+  </article>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { SettingMenu } from '@/models';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
 @Component
 export default class LayoutSetting extends Vue {
-  public listMenu: SettingMenu[] = [];
+  @Prop() productDetail!: any;
+  public productRating: any[] = [];
 
   created() {
-    this.getListMenu();
+    this.productRating = this.productDetail.ratings;
   }
 
-  getListMenu() {
-    let data: SettingMenu[] = [
-      {
-        id: 1,
-        link: '/setting/change-profile',
-        name: 'Setting profile'
-      },
-      {
-        id: 2,
-        link: '/setting/account-information',
-        name: 'Setting account'
-      },
-      {
-        id: 3,
-        link: '/setting/change-language',
-        name: 'Setting language'
-      }
-    ]
-    this.listMenu = data
+  @Watch('productDetail')
+  watchDetail() {
+    this.productRating = this.productDetail.ratings;
+  }
+
+  handleRatePercent(totalRate: any) {
+    return Math.ceil(totalRate / (this.productDetail.rate_five_star + this.productDetail.rate_four_star + this.productDetail.rate_three_star + this.productDetail.rate_two_star + this.productDetail.rate_one_star) * 100)
   }
 }
 </script>

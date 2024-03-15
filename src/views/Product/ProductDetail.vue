@@ -9,7 +9,6 @@
                 <div class="product-info">
                     <h5 class="mb-4" style="color: rgb(60, 153, 240);">{{ productDetail.name }}</h5>
                     <p>Trạng thái: <span :style="handleQuantity(productDetail.quantity).color">{{ handleQuantity(productDetail.quantity).text }}</span></p>
-                    <span>Đánh giá: chưa đánh giá</span>
                 </div>
 
                 <div class="product-attribute" v-for="product_attribute in productDetail.product_attribute_value" :key="product_attribute.id">
@@ -21,7 +20,7 @@
                 </div>
                 <hr>
                 <div class="product-action">
-                    <button @click="addToFavorite(productDetail)" class="btn btn-light mr-5">
+                    <button @click="addToFavorite(productDetail)" class="btn btn-warning mr-5">
                         <i class="far fa-heart"></i>
                     </button>
                     <button
@@ -66,11 +65,15 @@
         <div class="main-content-wrapper">
           <ProductInformation
             v-if="selectedTab === 'information'"
-            :information="productDetail"
+            :information="productDetail.content"
+          />
+          <ProductSpecification
+            v-if="selectedTab === 'specifications'"
+            :specification="productDetail.information"
           />
           <ProductRating
             v-if="selectedTab === 'rating'"
-            :rating="productDetail"
+            :productDetail="productDetail"
           />
         </div>
         <ModalSuccess :successMess="modalMess" />
@@ -83,11 +86,13 @@ import HomeInformationServices from '@/services/HomeInformationServices'
 import { Component, Vue } from 'vue-property-decorator'
 import ProductInformation from '@/components/ProductInformation.vue'
 import ProductRating from '@/components/ProductRating.vue'
+import ProductSpecification from '@/components/ProductSpecification.vue'
 
 @Component({
     components: {
         ProductInformation,
-        ProductRating
+        ProductRating,
+        ProductSpecification
     }
 })
 export default class CartView extends Vue {
@@ -101,6 +106,10 @@ export default class CartView extends Vue {
         {
             label: 'Thông tin chi tiết',
             value: 'information',
+        },
+        {
+            label: 'Thông số sản phẩm',
+            value: 'specifications',
         },
         {
             label: 'Đánh giá',
