@@ -327,13 +327,21 @@ export default class SettingInformation extends Vue {
         .then((response) => {
           if (response.status === 200) {
             this.getProfile();
-            this.modalMess = response.data.message;
-            this.$bvModal.show("modal-success");
+            this.$swal.fire({
+              text: response.data.message,
+              icon: "success",
+              showConfirmButton: false,
+              timer: 3000
+            })
           }
         })
         .catch((error) => {
-          this.modalMess = error.response.data.message;
-          this.$bvModal.show("modal-error");
+          this.$swal.fire({
+            text: error.response.data.message,
+            icon: "success",
+            showConfirmButton: false,
+            timer: 3000
+          })
         })
         .finally(() => this.$blockui.hide());
     }

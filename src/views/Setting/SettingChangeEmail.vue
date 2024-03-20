@@ -92,8 +92,12 @@ export default class SettingAccount extends Vue {
         UserService.changeEmail(params)
         .then((response) => {
             if (response.status == 200) {
-                this.modalMess = response.data.message;
-                this.$bvModal.show("modal-success");
+                this.$swal.fire({
+                    text: response.data.message,
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 3000
+                })
             }
         })
         .catch((error) => {
@@ -102,7 +106,12 @@ export default class SettingAccount extends Vue {
                 this.emailStatusMsg = error.response.data.message
                 this.showErrorEmail = true
             } else {
-                this.$bvModal.show('modal-error')
+                this.$swal.fire({
+                    text: 'Error',
+                    icon: "error",
+                    showConfirmButton: false,
+                    timer: 3000
+                })
                 this.showErrorEmail = false
             }
         })

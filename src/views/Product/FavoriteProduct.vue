@@ -51,8 +51,13 @@
   </div>
 </template>
 <script lang="ts">
+import CartService from "@/services/CartService";
 import HomeInformationServices from "@/services/HomeInformationServices";
+import store from "@/store";
+import CartProductStore from "@/store/modules/CartProductStore";
 import { Component, Vue } from "vue-property-decorator";
+import { getModule } from "vuex-module-decorators";
+const CartModule = getModule(CartProductStore, store)
 
 @Component
 export default class CartView extends Vue {
@@ -77,10 +82,46 @@ export default class CartView extends Vue {
 
   addToCart(item: any) {
     if (item.quantity <= 0) {
-      this.modalMess = "response.data.message";
-      this.$bvModal.show("modal-error");
+      this.$swal.fire({
+        text: 'Số lượng sản phẩm ko đủ!!!',
+        icon: "error",
+        showConfirmButton: false,
+        timer: 3000
+      })
     }
-    console.log(item);
+
+    const product = {
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      qty_pay: 1,
+      image: item.image,
+      category_id: item.category_id,
+      sale: item.sale
+    }
+    CartModule.ADD_PRODUCT_TO_CART(product)
+    let params = {
+      products: localStorage.getItem('cart_product')
+    }
+    
+    CartService.addProductToCart(params).then((response) => {
+      if (response.status === 200) {
+        this.$swal.fire({
+          text: response.data.message,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
+    })
+    .catch((error) => {
+      this.$swal.fire({
+        text: error.response.data.message,
+        icon: "error",
+        showConfirmButton: false,
+        timer: 3000
+      })
+    })
   }
 
   removeFavorite(id: any) {
@@ -90,15 +131,23 @@ export default class CartView extends Vue {
     HomeInformationServices.removeFavoriteProduct(params)
     .then((response) => {
         if (response.status == 200) {
-            this.modalMess = response.data.message;
-            this.$bvModal.show("modal-success");
+            this.$swal.fire({
+              text: response.data.message,
+              icon: "success",
+              showConfirmButton: false,
+              timer: 3000
+            })
             this.getListFavorite();
         }
     })
     .catch((error) => {
         console.log(error);
-        this.modalMess = error.response.data.message;
-        this.$bvModal.show("modal-error");
+        this.$swal.fire({
+          text: error.response.data.message,
+          icon: "error",
+          showConfirmButton: false,
+          timer: 3000
+        })
     })
   }
 

@@ -479,6 +479,12 @@ import Swiper, { Navigation, SwiperOptions } from 'swiper';
 import _ from 'lodash';
 import PreviewText from '@/helpers/PreviewText';
 import moment from 'moment';
+import CartService from '@/services/CartService'
+import { getModule } from 'vuex-module-decorators';
+import store from '@/store';
+import CartProductStore from '@/store/modules/CartProductStore';
+const CartModule = getModule(CartProductStore, store)
+
 @Component
 export default class HomeView extends Vue {
   private loading: boolean = true;
@@ -561,10 +567,46 @@ export default class HomeView extends Vue {
 
   addToCart(item: any) {
     if (item.quantity <= 0) {
-      this.modalMess = 'response.data.message';
-      this.$bvModal.show("modal-error");
+      this.$swal.fire({
+        text: 'Số lượng sản phẩm không đủ! Vui lòng chọn sản phẩm khác',
+        icon: "error",
+        showConfirmButton: false,
+        timer: 3000
+      })
     }
-    console.log(item);
+
+    const product = {
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      qty_pay: 1,
+      image: item.image,
+      category_id: item.category_id,
+      sale: item.sale
+    }
+    CartModule.ADD_PRODUCT_TO_CART(product)
+    let params = {
+      products: localStorage.getItem('cart_product')
+    }
+    
+    CartService.addProductToCart(params).then((response) => {
+      if (response.status === 200) {
+        this.$swal.fire({
+          text: response.data.message,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
+    })
+    .catch((error) => {
+      this.$swal.fire({
+        text: error.response.data.message,
+        icon: "error",
+        showConfirmButton: false,
+        timer: 3000
+      })
+    })
   }
 
   addToFavorite(item: any) {
@@ -572,19 +614,30 @@ export default class HomeView extends Vue {
     .then((response) => {
       if (response.status == 200) {
         if (response.data.item.status === 200) {
-          this.modalMess = response.data.message;
-          this.$bvModal.show("modal-success");
+          this.$swal.fire({
+            text: response.data.message,
+            icon: "success",
+            showConfirmButton: false,
+            timer: 3000
+          })
         } else {
-          this.modalMess = response.data.message;
-          this.$bvModal.show("modal-warning");
+          this.$swal.fire({
+            text: response.data.message,
+            icon: "warning",
+            showConfirmButton: false,
+            timer: 3000
+          })
         }
       }
     })
     .catch((error) => {
-      this.modalMess = error.response.data.message;
-      this.$bvModal.show("modal-error");
+      this.$swal.fire({
+        text: error.response.data.message,
+        icon: "error",
+        showConfirmButton: false,
+        timer: 3000
+      })
     })
-    console.log(item);
   }
 }
 </script>

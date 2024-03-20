@@ -280,8 +280,12 @@ export default class LayoutAuth extends Vue {
         AuthService.register(this.newMem)
         .then((response) => {
             if (response.status === 200) {
-            this.modalMess = this.$t('common.msg.register_success') as string;
-            this.$bvModal.show("modal-success");
+                this.$swal.fire({
+                    text: this.$t('common.msg.register_success') as string,
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 3000
+                })
             }
         })
         .catch((error) => {
@@ -290,12 +294,24 @@ export default class LayoutAuth extends Vue {
                 error.response.data.message == 'email_already_exists'
             ) {
                 this.nameRoute = 'register'
-                this.modalMess = this.$t('common.message.email_already_exists') as string
-                this.$bvModal.show('modal-error')
+                // this.modalMess = this.$t('common.message.email_already_exists') as string
+                // this.$bvModal.show('modal-error')
+                this.$swal.fire({
+                    text: this.$t('common.message.email_already_exists') as string,
+                    icon: "error",
+                    showConfirmButton: false,
+                    timer: 3000
+                })
             } else {
                 this.nameRoute = 'register'
-                this.modalMess = this.$t('common.msg.register_error') as string;
-                this.$bvModal.show("modal-error");
+                // this.modalMess = this.$t('common.msg.register_error') as string;
+                // this.$bvModal.show("modal-error");
+                this.$swal.fire({
+                    text: this.$t('common.msg.register_error') as string,
+                    icon: "error",
+                    showConfirmButton: false,
+                    timer: 3000
+                })
             }
         })
         .finally(() => this.$blockui.hide());

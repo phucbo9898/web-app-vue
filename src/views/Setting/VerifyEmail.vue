@@ -39,12 +39,20 @@ export default class VerifyPage extends Vue {
       };
       UserService.verifyEmailChange(this.$route.query.user_id, data)
         .then((response) => {
-          this.modalMess = response.data.message;
-          this.$bvModal.show("modal-success");
+          this.$swal.fire({
+            text: response.data.message,
+            icon: "success",
+            showConfirmButton: false,
+            timer: 3000
+          })
         })
         .catch((error) => {
-          this.modalMess = error.response.data.message;
-          this.$bvModal.show("modal-error");
+          this.$swal.fire({
+            text: error.response.data.message,
+            icon: "success",
+            showConfirmButton: false,
+            timer: 3000
+          })
         })
         .finally(() => (this.spining = false));
     }

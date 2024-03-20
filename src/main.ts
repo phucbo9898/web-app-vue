@@ -16,13 +16,24 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Swiper, { Autoplay, Pagination, Navigation } from 'swiper'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/swiper.css'
+import Toast from 'vue-toastification'
+import 'vue-toastification/dist/index.css'
+import VueSweetalert2 from 'vue-sweetalert2'
+import 'sweetalert2/dist/sweetalert2.min.css';
+
 // @ts-ignore
 // import Vidle from 'v-idle'
 // Vue.use(Vidle)
 const CommonModule = getModule(BlockUi, store)
+
 Swiper.use([Autoplay, Pagination, Navigation])
 Vue.use(VueAwesomeSwiper)
-
+Vue.use(VueSweetalert2)
+Vue.use(Toast, {
+  transition: "Vue-Toastification__bounce",
+  maxToaSts: 10,
+  newestOnTop: true
+})
 Component.registerHooks([
   'beforeRouteEnter',
   'beforeRouteLeave',

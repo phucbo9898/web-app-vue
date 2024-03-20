@@ -165,12 +165,27 @@ const routes: Array<RouteConfig> = [
   {
     path: '/cart',
     name: 'cart',
-    component: () => import('@/views/Cart/Cart.vue'),
-    meta: {
-      layout: LayoutHome,
-      title: 'Cart',
-      requiresAuth: false
-    }
+    component: LayoutHome,
+    children: [
+      {
+        path: 'information',
+        name: 'cart-information',
+        component: () => import('@/views/Cart/CartInformation.vue'),
+        meta: {
+          title: 'Cart',
+          requiresAuth: true
+        }
+      },
+      {
+        path: 'checkout',
+        name: 'cart-checkout',
+        component: () => import('@/views/Cart/CartCheckout.vue'),
+        meta: {
+          title: 'Detail cart',
+          requiresAuth: true
+        }
+      }
+    ]
   },
   {
     path: '/product/:productId',
@@ -223,7 +238,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   document.title = to.meta?.title + '| example'
   let token = store.state.auth.token
-  if (to.matched.some(record => record.meta.requireAuth) && !token) {
+  if (to.matched.some(record => record.meta.requiresAuth) && !token) {
     next({
       path: '/login',
       query: { redirect: to.fullPath }

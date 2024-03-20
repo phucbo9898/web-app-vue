@@ -65,16 +65,23 @@ export default class SettingLanguage extends Vue {
         UserService.updateSettingLanguage(parrams)
         .then((response) => {
             if (response.status === 200) {
-                this.modalMess = response.data.message;
                 this.getProfile()
-                this.$bvModal.show("modal-success");
-                console.log(response);
+                this.$swal.fire({
+                    text: response.data.message,
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 3000
+                })
             }
         })
         .catch((error) => {
             console.log(error);
-            this.modalMess = error.response.data.message;
-            this.$bvModal.show("modal-error");
+            this.$swal.fire({
+                text: error.response.data.message,
+                icon: "error",
+                showConfirmButton: false,
+                timer: 3000
+            })
         })
         .finally(() => this.$blockui.hide());
     }

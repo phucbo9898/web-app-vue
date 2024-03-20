@@ -36,7 +36,7 @@
           </div>
           <div class="col-lg-3" style="margin: auto;">
             <div class="d-flex">
-              <router-link to="/cart">
+              <router-link to="/cart/information">
                 <img
                   src="../assets/shopping-cart.png"
                   alt=""
@@ -44,7 +44,7 @@
                 />
               </router-link>
               <div class="py-2 mt-8">
-                <span class="font-weight-bold px-3" style="font-weight: bold !important; color: red !important;">{{ price.toLocaleString().replaceAll('.', ',')}} VNĐ</span>
+                <span class="font-weight-bold px-3" style="font-weight: bold !important; color: red !important;">{{ cartTotalPrice.toLocaleString().replaceAll('.', ',')}} VNĐ</span>
               </div>
 
               <!-- <div class="border text-center" style="width: 25px; height: 25px; border-radius: 50%; position: absolute; top: 22%; right: 21.6%; background-color: red; border: 0 !important;">
@@ -77,16 +77,28 @@
 
 <script lang="ts">
 import HomeInformationServices from "@/services/HomeInformationServices";
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
+import { namespace } from "vuex-class";
+const CartProductStore = namespace('cartProductStore')
 @Component
 export default class HeaderMiddle extends Vue {
   public price: number = 0
   public search_category_id: any = 0
   public keywork: any = ''
   public categories: any = []
+  @CartProductStore.Getter
+  private cartInfo!: any
+  public cartProductList: any = []
+  public cartTotalPrice: any = 0
 
   created() {
     this.getListCategories()
+    this.calcOverViewCart()
+  }
+
+  @Watch('cartInfo')
+  UpdateCartWhenProductInCartChange() {
+    this.calcOverViewCart()
   }
 
   getListCategories() {
@@ -99,6 +111,16 @@ export default class HeaderMiddle extends Vue {
       .catch((error) => {
         console.log(error);
       })
+  }
+
+  calcOverViewCart() {
+    this.cartProductList = JSON.parse(JSON.stringify(this.cartInfo))
+    this.cartTotalPrice = 0
+    if (this.cartProductList) {
+      this.cartProductList.forEach((item: any) => {
+        this.cartTotalPrice += Number(item.price * item.qty_pay)
+      });
+    }
   }
 
   handleSubmit() {

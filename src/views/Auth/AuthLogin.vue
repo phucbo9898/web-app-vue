@@ -43,14 +43,17 @@
 
 <script lang="ts">
 import router from "@/router";
+import CartService from "@/services/CartService";
 import store from "@/store";
 import Auth from "@/store/modules/Auth";
+import CartProductStore from "@/store/modules/CartProductStore";
 import UserInfo from "@/store/modules/UserInfo";
 import { Component, Vue } from "vue-property-decorator";
 import { getModule } from "vuex-module-decorators";
 import AuthService from "../../services/AuthService";
 const AuthModule = getModule(Auth, store);
 const UserInforModule = getModule(UserInfo, store);
+const CartModule = getModule(CartProductStore, store);
 
 @Component
 export default class LayoutAuth extends Vue {
@@ -78,6 +81,7 @@ export default class LayoutAuth extends Vue {
           let token = response.data.item.token;
           if (token) {
             await AuthModule.SET_NEW_TOKEN(response.data.item.token);
+            await this.getCartByUser()
             await this.getUserInfor();
           }
         }
@@ -94,6 +98,15 @@ export default class LayoutAuth extends Vue {
         // console.log(err.response.status);
       })
       .finally(() => this.$blockui.hide());
+  }
+
+  getCartByUser() {
+    CartService.getListProductInCart().then(async (response) => {
+      if (response.status === 200) {
+        // CartModule.ADD_CART(response.data)
+        await localStorage.setItem('cart_product', JSON.stringify(response.data))
+      }
+    })
   }
 
   getUserInfor() {
