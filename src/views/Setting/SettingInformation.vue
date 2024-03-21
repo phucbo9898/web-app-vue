@@ -338,7 +338,7 @@ export default class SettingInformation extends Vue {
         .catch((error) => {
           this.$swal.fire({
             text: error.response.data.message,
-            icon: "success",
+            icon: "error",
             showConfirmButton: false,
             timer: 3000
           })

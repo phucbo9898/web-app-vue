@@ -104,7 +104,7 @@ export default class LayoutAuth extends Vue {
     CartService.getListProductInCart().then(async (response) => {
       if (response.status === 200) {
         // CartModule.ADD_CART(response.data)
-        await localStorage.setItem('cart_product', JSON.stringify(response.data))
+        await localStorage.setItem('cart_product', response.data)
       }
     })
   }

@@ -346,8 +346,7 @@ export default class CartView extends Vue {
         if (response.status === 200) {
           console.log('response', response.data);
           this.$swal.fire({
-            title: "The Internet?",
-            // text: "That thing is still around?",
+            title: response.data.message,
             icon: "success",
             showConfirmButton: false,
             timer: 3000
@@ -361,7 +360,7 @@ export default class CartView extends Vue {
           CartModule.CLEAR_CART_PRODUCT_EDIT()
           setTimeout(() => {
             this.$router.push({ name: 'home'})
-          }, 3000);
+          }, 1500);
         }
       })
       .catch((error) => {
