@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import LayoutHome from '@/layouts/LayoutHome.vue'
 import LayoutAbout from '@/layouts/LayoutAbout.vue'
 import LayoutAuth from '@/layouts/LayoutAuth.vue'
@@ -123,6 +122,90 @@ const routes: Array<RouteConfig> = [
       title: 'Verify email',
       requiresAuth: false
     }
+  },
+  {
+    path: '/category/:categoryId',
+    name: 'category-detail',
+    component: () => import('@/views/Setting/VerifyEmail.vue'),
+    meta: {
+      layout: LayoutHome,
+      title: 'Category detail',
+      requiresAuth: false
+    }
+  },
+  {
+    path: '/article',
+    redirect: '/article',
+    component: LayoutHome,
+    // meta: {
+    //   title: 'List article',
+    //   requiresAuth: false
+    // },
+    children: [
+      {
+        path: 'list',
+        name: 'list-article',
+        component: () => import('@/views/Article/ArticleView.vue'),
+        meta: {
+          title: 'List article',
+          requiresAuth: true
+        }
+      },
+      {
+        path: ':articleId',
+        name: 'article-detail',
+        component: () => import('@/views/Article/ArticleDetail.vue'),
+        meta: {
+          title: 'Detail article',
+          requiresAuth: false
+        }
+      }
+    ]
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: LayoutHome,
+    children: [
+      {
+        path: 'information',
+        name: 'cart-information',
+        component: () => import('@/views/Cart/CartInformation.vue'),
+        meta: {
+          title: 'Cart',
+          requiresAuth: true
+        }
+      },
+      {
+        path: 'checkout',
+        name: 'cart-checkout',
+        component: () => import('@/views/Cart/CartCheckout.vue'),
+        meta: {
+          title: 'Detail cart',
+          requiresAuth: true
+        }
+      }
+    ]
+  },
+  {
+    path: '/product/:productId',
+    name: 'product-detail',
+    component: () => import('@/views/Product/ProductDetail.vue'),
+    meta: {
+      layout: LayoutHome,
+      title: 'Product detail',
+      requiresAuth: false
+    }
+  },
+  {
+    path: '/favorite-product',
+    name: 'favorite-product',
+    component: () => import('@/views//Product/FavoriteProduct.vue'),
+    meta: {
+      layout: LayoutHome,
+      title: 'Favorite product',
+      requiresAuth: true
+    }
   }
 ]
 
@@ -155,7 +238,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   document.title = to.meta?.title + '| example'
   let token = store.state.auth.token
-  if (to.matched.some(record => record.meta.requireAuth) && !token) {
+  if (to.matched.some(record => record.meta.requiresAuth) && !token) {
     next({
       path: '/login',
       query: { redirect: to.fullPath }

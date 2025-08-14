@@ -26,6 +26,14 @@ class UserService {
     updateProfile(params: any) {
         return axiosApiInstance.post(Const.api_url + 'members/me/update-profile', params)
     }
+
+    updateSettingLanguage(params: any) {
+        return axiosApiInstance.post(Const.api_url + 'members/me/update-setting-language', params)
+    }
+
+    updateDeviceToken(params: any) {
+        return axiosApiInstance.patch(`${Const.api_url}members/me/update-device-token`, params);
+      }
 }
 
 export default new UserService

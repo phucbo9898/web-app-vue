@@ -4,13 +4,15 @@ import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators';
 class UserInfo extends VuexModule {
     user_default: any = {
         id: '',
-        name: '',
+        first_name: '',
+        last_name: '',
         email: '',
         phone: '',
         avatar: '',
         address: '',
         role: '',
         status: '',
+        setting_language: '',
     }
     user: any = this.user_default
     @Mutation
@@ -31,6 +33,16 @@ class UserInfo extends VuexModule {
     @Action({ rawError: true})
     HANDLE_USER_AVATAR(avatar: string) {
         this.context.commit('handleUserAvatar', avatar)
+    }
+
+    @Mutation
+    handleUserSettingLanguage(language: string) {
+        this.user.setting_language = language;
+    }
+
+    @Action({ rawError: true})
+    HANDLE_USER_SETTING_LANGUAGE(language: string) {
+        this.context.commit('handleUserSettingLanguage', language)
     }
 
     @Mutation

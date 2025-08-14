@@ -258,8 +258,12 @@ export default class SettingChangePassword extends Vue {
         UserService.changePassword(params)
             .then((response) => {
                 if (response.status == 200) {
-                    this.modalMess = response.data.message;
-                    this.$bvModal.show("modal-success");
+                    this.$swal.fire({
+                        text: response.data.message,
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
                 }
             })
             .catch((error) => {
@@ -268,7 +272,12 @@ export default class SettingChangePassword extends Vue {
                     this.passwordStatusMsg = error.response.data.message
                     this.showErrorPassword = true
                 } else {
-                    this.$bvModal.show('modal-error')
+                    this.$swal.fire({
+                        text: 'Error',
+                        icon: "error",
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
                     this.showErrorPassword = false
                 }
             })
